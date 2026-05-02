@@ -1,0 +1,4580 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>CollabAR Learning Hub</title>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+
+   CollabAR Learning Hub — Stylesheet
+
+   palette: #1a3a6b (dominant) · #ffffff (secondary) · #e63946 (accent)
+
+   ═══════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+
+/* ── Reset & Variables ──────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+
+  --navy:      #1a3a6b;
+
+  --navy-dark: #0f2347;
+
+  --navy-mid:  #1e4080;
+
+  --navy-light:#2a5298;
+
+  --sky:       #3a7bd5;
+
+  --sky-glow:  rgba(58,123,213,.35);
+
+  --red:       #e63946;
+
+  --red-soft:  rgba(230,57,70,.15);
+
+  --white:     #ffffff;
+
+  --off-white: #f0f4ff;
+
+  --grid-line: rgba(58,123,213,.18);
+
+  --glass:     rgba(255,255,255,.06);
+
+  --glass-b:   rgba(255,255,255,.12);
+
+  --shadow:    0 8px 32px rgba(10,20,60,.5);
+
+  --radius:    12px;
+
+  --font-head: 'Rajdhani', sans-serif;
+
+  --font-body: 'Exo 2', sans-serif;
+
+}
+
+Html, body {
+
+  height: 100%;
+
+  background: var(--navy-dark);
+
+  color: var(--white);
+
+  font-family: var(--font-body);
+
+  font-size: 14px;
+
+  overflow: hidden;
+
+}
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 5px; }
+
+::-webkit-scrollbar-track { background: transparent; }
+
+::-webkit-scrollbar-thumb { background: var(--navy-light); border-radius: 4px; }
+
+/* ══════════════════════════════════════════════════════════
+
+   APP SHELL
+
+   ══════════════════════════════════════════════════════════ */
+
+#app {
+
+  display: flex;
+
+  flex-direction: column;
+
+  height: 100vh;
+
+  background:
+
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(26,58,107,.9) 0%, transparent 70%),
+
+    radial-gradient(ellipse 60% 40% at 80% 90%, rgba(42,82,152,.6) 0%, transparent 60%),
+
+    var(--navy-dark);
+
+}
+
+/* ── Topnav ─────────────────────────────────────────────── */
+
+#topnav {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 0 24px;
+
+  height: 58px;
+
+  background: linear-gradient(90deg, var(--navy-dark) 0%, var(--navy-mid) 50%, var(--navy-dark) 100%);
+
+  border-bottom: 1px solid rgba(58,123,213,.4);
+
+  box-shadow: 0 2px 20px rgba(0,0,0,.4);
+
+  z-index: 100;
+
+  flex-shrink: 0;
+
+  position: relative;
+
+}
+
+#topnav::after {
+
+  content: '';
+
+  position: absolute;
+
+  bottom: 0; left: 0; right: 0;
+
+  height: 1px;
+
+  background: linear-gradient(90deg, transparent, var(--sky), transparent);
+
+}
+
+.nav-brand {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+}
+
+.nav-logo {
+
+  width: 34px; height: 34px;
+
+  background: linear-gradient(135deg, var(--sky), var(--navy-light));
+
+  border-radius: 8px;
+
+  display: flex; align-items: center; justify-content: center;
+
+  font-size: 18px;
+
+  box-shadow: 0 0 14px var(--sky-glow);
+
+}
+
+.nav-title {
+
+  font-family: var(--font-head);
+
+  font-size: 22px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  background: linear-gradient(90deg, #ffffff, #7eb3ff);
+
+  -webkit-background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+
+  background-clip: text;
+
+}
+
+.nav-subtitle {
+
+  font-size: 10px;
+
+  letter-spacing: 3px;
+
+  color: rgba(126,179,255,.7);
+
+  text-transform: uppercase;
+
+  margin-top: -2px;
+
+}
+
+.nav-right { display: flex; align-items: center; gap: 10px; }
+
+.btn-dash {
+
+  background: linear-gradient(135deg, var(--red) 0%, #c1121f 100%);
+
+  color: var(--white);
+
+  border: none;
+
+  padding: 8px 18px;
+
+  border-radius: 8px;
+
+  font-family: var(--font-head);
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  transition: all .2s;
+
+  box-shadow: 0 4px 14px rgba(230,57,70,.4);
+
+}
+
+.btn-dash:hover {
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 6px 20px rgba(230,57,70,.6);
+
+}
+
+.status-dot {
+
+  width: 8px; height: 8px;
+
+  border-radius: 50%;
+
+  background: #00e676;
+
+  box-shadow: 0 0 8px #00e676;
+
+  animation: pulse-dot 2s ease-in-out infinite;
+
+}
+
+@keyframes pulse-dot {
+
+  0%,100% { opacity:1; } 50% { opacity:.4; }
+
+}
+
+.status-label {
+
+  font-size: 11px;
+
+  color: #00e676;
+
+  letter-spacing: 1px;
+
+}
+
+/* ══════════════════════════════════════════════════════════
+
+   MAIN LAYOUT
+
+   ══════════════════════════════════════════════════════════ */
+
+#main {
+
+  display: flex;
+
+  flex: 1;
+
+  overflow: hidden;
+
+  gap: 0;
+
+}
+
+/* ══════════════════════════════════════════════════════════
+
+   LEFT — AR PANEL
+
+   ══════════════════════════════════════════════════════════ */
+
+#ar-panel {
+
+  width: 58%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  padding: 16px;
+
+  gap: 12px;
+
+  border-right: 1px solid rgba(58,123,213,.3);
+
+  background: linear-gradient(160deg, rgba(15,35,71,.8) 0%, rgba(26,58,107,.4) 100%);
+
+  position: relative;
+
+  overflow: hidden;
+
+}
+
+/* ── AR Toolbar ─────────────────────────────────────────── */
+
+.ar-toolbar {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  flex-shrink: 0;
+
+}
+
+.ar-label {
+
+  font-family: var(--font-head);
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  letter-spacing: 2px;
+
+  color: var(--sky);
+
+  text-transform: uppercase;
+
+}
+
+.subject-select {
+
+  background: var(--glass-b);
+
+  border: 1px solid rgba(58,123,213,.5);
+
+  color: var(--white);
+
+  padding: 6px 28px 6px 12px;
+
+  border-radius: 8px;
+
+  font-family: var(--font-body);
+
+  font-size: 13px;
+
+  cursor: pointer;
+
+  outline: none;
+
+  appearance: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237eb3ff'/%3E%3C/svg%3E");
+
+  background-repeat: no-repeat;
+
+  background-position: right 10px center;
+
+  transition: border-color .2s;
+
+}
+
+.subject-select:hover { border-color: var(--sky); }
+
+.subject-select option { background: var(--navy-dark); }
+
+.ar-badge {
+
+  margin-left: auto;
+
+  background: linear-gradient(90deg, rgba(0,230,118,.15), rgba(0,230,118,.05));
+
+  border: 1px solid rgba(0,230,118,.4);
+
+  color: #00e676;
+
+  font-size: 10px;
+
+  letter-spacing: 1.5px;
+
+  padding: 3px 10px;
+
+  border-radius: 20px;
+
+  font-weight: 600;
+
+}
+
+/* ── AR Viewport ────────────────────────────────────────── */
+
+#ar-viewport {
+
+  flex: 1;
+
+  position: relative;
+
+  border-radius: var(--radius);
+
+  overflow: hidden;
+
+  background:
+
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(42,82,152,.25) 0%, transparent 70%),
+
+    linear-gradient(180deg, #060e1f 0%, #0a1830 100%);
+
+  border: 1px solid rgba(58,123,213,.3);
+
+  box-shadow: inset 0 0 60px rgba(0,0,0,.5), var(--shadow);
+
+}
+
+/* Scanlines overlay */
+
+#ar-viewport::before {
+
+  content: '';
+
+  position: absolute; inset: 0;
+
+  background: repeating-linear-gradient(
+
+    0deg, transparent, transparent 3px, rgba(0,0,0,.04) 3px, rgba(0,0,0,.04) 4px
+
+  );
+
+  pointer-events: none;
+
+  z-index: 5;
+
+}
+
+/* Corner brackets */
+
+.ar-corner {
+
+  position: absolute;
+
+  width: 22px; height: 22px;
+
+  border-color: var(--sky);
+
+  border-style: solid;
+
+  border-width: 0;
+
+  z-index: 6;
+
+}
+
+.ar-corner.tl { top: 12px; left: 12px; border-top-width: 2px; border-left-width: 2px; }
+
+.ar-corner.tr { top: 12px; right: 12px; border-top-width: 2px; border-right-width: 2px; }
+
+.ar-corner.bl { bottom: 12px; left: 12px; border-bottom-width: 2px; border-left-width: 2px; }
+
+.ar-corner.br { bottom: 12px; right: 12px; border-bottom-width: 2px; border-right-width: 2px; }
+
+/* HUD elements */
+
+.ar-hud {
+
+  position: absolute;
+
+  top: 14px; left: 50%;
+
+  transform: translateX(-50%);
+
+  font-family: var(--font-head);
+
+  font-size: 10px;
+
+  letter-spacing: 3px;
+
+  color: rgba(126,179,255,.6);
+
+  z-index: 6;
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+
+}
+
+.ar-crosshair {
+
+  position: absolute;
+
+  top: 50%; left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 20px; height: 20px;
+
+  z-index: 6;
+
+  pointer-events: none;
+
+}
+
+.ar-crosshair::before, .ar-crosshair::after {
+
+  content: '';
+
+  position: absolute;
+
+  background: rgba(126,179,255,.4);
+
+}
+
+.ar-crosshair::before { top: 50%; left: 0; right: 0; height: 1px; transform: translateY(-50%); }
+
+.ar-crosshair::after  { left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-50%); }
+
+/* Grid base */
+
+.ar-grid {
+
+  position: absolute;
+
+  bottom: 50px; left: 50%; 
+
+  transform: translateX(-50%);
+
+  width: 260px; height: 80px;
+
+  z-index: 2;
+
+}
+
+.ar-grid-svg { width: 100%; height: 100%; }
+
+/* 3D model stage */
+
+#model-stage {
+
+  position: absolute;
+
+  top: 50%; left: 50%;
+
+  transform: translate(-50%, -55%);
+
+  width: 240px; height: 240px;
+
+  display: flex; align-items: center; justify-content: center;
+
+  z-index: 3;
+
+  transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+
+}
+
+/* Glow under model */
+
+.model-glow {
+
+  position: absolute;
+
+  bottom: -10px; left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 160px; height: 30px;
+
+  background: radial-gradient(ellipse, var(--sky-glow) 0%, transparent 70%);
+
+  filter: blur(8px);
+
+  z-index: 1;
+
+}
+
+/* ── 3D Models (CSS/SVG) ─────────────────────────────────── */
+
+/* DNA Helix */
+
+.model-dna {
+
+  width: 120px; height: 200px;
+
+  position: relative;
+
+  animation: spin-y 4s linear infinite;
+
+}
+
+@keyframes spin-y {
+
+  0% { transform: rotateY(0deg); }
+
+  100% { transform: rotateY(360deg); }
+
+}
+
+.dna-strand {
+
+  position: absolute;
+
+  width: 100%; height: 100%;
+
+}
+
+.dna-rung {
+
+  position: absolute;
+
+  left: 50%; width: 80px;
+
+  height: 4px; 
+
+  transform: translateX(-50%);
+
+  border-radius: 2px;
+
+  transform-origin: center;
+
+}
+
+/* Solar system */
+
+.model-solar {
+
+  width: 200px; height: 200px;
+
+  position: relative;
+
+  animation: spin-slow 20s linear infinite;
+
+}
+
+.sun {
+
+  position: absolute;
+
+  top: 50%; left: 50%;
+
+  width: 44px; height: 44px;
+
+  transform: translate(-50%, -50%);
+
+  background: radial-gradient(circle, #fff7a1, #ffcc02, #ff8c00);
+
+  border-radius: 50%;
+
+  box-shadow: 0 0 20px #ffcc02, 0 0 40px rgba(255,200,0,.5);
+
+}
+
+.orbit {
+
+  position: absolute;
+
+  top: 50%; left: 50%;
+
+  border: 1px solid rgba(126,179,255,.25);
+
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+
+}
+
+.planet {
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  top: 0; left: 50%;
+
+  transform-origin: center bottom;
+
+}
+
+/* Geometry (Octahedron-ish with CSS) */
+
+.model-geo {
+
+  width: 160px; height: 160px;
+
+  position: relative;
+
+  display: flex; align-items: center; justify-content: center;
+
+  animation: spin-3d 5s linear infinite;
+
+}
+
+@keyframes spin-3d {
+
+  0%   { transform: rotateY(0deg) rotateX(15deg); }
+
+  100% { transform: rotateY(360deg) rotateX(15deg); }
+
+}
+
+.geo-face {
+
+  position: absolute;
+
+  border-radius: 2px;
+
+  transform-origin: center center;
+
+}
+
+/* Physics pendulum */
+
+.model-physics {
+
+  width: 160px; height: 200px;
+
+  position: relative;
+
+  display: flex; align-items: flex-start; justify-content: center;
+
+}
+
+.pendulum-pivot {
+
+  position: absolute;
+
+  top: 0; left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 10px; height: 10px;
+
+  background: var(--sky);
+
+  border-radius: 50%;
+
+  box-shadow: 0 0 8px var(--sky-glow);
+
+}
+
+.pendulum-arm {
+
+  position: absolute;
+
+  top: 5px; left: 50%;
+
+  width: 2px; height: 130px;
+
+  background: linear-gradient(180deg, var(--sky), rgba(126,179,255,.4));
+
+  transform-origin: top center;
+
+  animation: swing 1.5s ease-in-out infinite;
+
+}
+
+@keyframes swing {
+
+  0%, 100% { transform: rotate(-30deg); }
+
+  50%       { transform: rotate(30deg); }
+
+}
+
+.pendulum-bob {
+
+  position: absolute;
+
+  bottom: -14px; left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 28px; height: 28px;
+
+  background: radial-gradient(circle at 35% 35%, #7eb3ff, var(--sky), var(--navy-light));
+
+  border-radius: 50%;
+
+  box-shadow: 0 0 16px var(--sky-glow), inset 0 -4px 8px rgba(0,0,0,.3);
+
+}
+
+/* ── AR Controls ────────────────────────────────────────── */
+
+.ar-controls {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  flex-shrink: 0;
+
+}
+
+.ar-explore-label {
+
+  flex: 1;
+
+  font-family: var(--font-head);
+
+  font-size: 13px;
+
+  font-weight: 500;
+
+  color: rgba(126,179,255,.8);
+
+  letter-spacing: 1px;
+
+  font-style: italic;
+
+}
+
+.btn-ar {
+
+  display: flex; align-items: center; gap: 6px;
+
+  background: var(--glass-b);
+
+  border: 1px solid rgba(58,123,213,.5);
+
+  color: var(--white);
+
+  padding: 8px 16px;
+
+  border-radius: 8px;
+
+  font-family: var(--font-head);
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  transition: all .2s;
+
+}
+
+.btn-ar:hover {
+
+  background: rgba(58,123,213,.3);
+
+  border-color: var(--sky);
+
+  box-shadow: 0 0 12px rgba(58,123,213,.3);
+
+  transform: translateY(-1px);
+
+}
+
+.btn-ar:active { transform: translateY(0); }
+
+.btn-ar.rotate-active { background: rgba(58,123,213,.4); border-color: var(--sky); }
+
+.btn-ar.scale-active  { background: rgba(58,123,213,.4); border-color: #7eb3ff; }
+
+/* ── Model info overlay ─────────────────────────────────── */
+
+.ar-model-info {
+
+  position: absolute;
+
+  bottom: 70px; right: 14px;
+
+  background: rgba(10,20,60,.75);
+
+  backdrop-filter: blur(8px);
+
+  border: 1px solid rgba(58,123,213,.4);
+
+  border-radius: 8px;
+
+  padding: 8px 12px;
+
+  z-index: 6;
+
+  min-width: 130px;
+
+}
+
+.ar-model-info-title {
+
+  font-family: var(--font-head);
+
+  font-size: 11px;
+
+  letter-spacing: 2px;
+
+  color: var(--sky);
+
+  text-transform: uppercase;
+
+  margin-bottom: 4px;
+
+}
+
+.ar-model-info-val {
+
+  font-size: 12px;
+
+  color: rgba(255,255,255,.7);
+
+  line-height: 1.6;
+
+}
+
+/* ══════════════════════════════════════════════════════════
+
+   RIGHT — COLLABORATION PANEL
+
+   ══════════════════════════════════════════════════════════ */
+
+#collab-panel {
+
+  flex: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  background: linear-gradient(180deg, rgba(10,20,50,.9) 0%, rgba(15,35,71,.95) 100%);
+
+  overflow: hidden;
+
+}
+
+/* ── Tab Bar ────────────────────────────────────────────── */
+
+.tab-bar {
+
+  display: flex;
+
+  border-bottom: 1px solid rgba(58,123,213,.3);
+
+  flex-shrink: 0;
+
+}
+
+.tab-btn {
+
+  flex: 1;
+
+  padding: 12px;
+
+  background: transparent;
+
+  border: none;
+
+  color: rgba(255,255,255,.45);
+
+  font-family: var(--font-head);
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  letter-spacing: 1.5px;
+
+  cursor: pointer;
+
+  transition: all .2s;
+
+  border-bottom: 2px solid transparent;
+
+  text-transform: uppercase;
+
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+
+}
+
+.tab-btn:hover { color: rgba(255,255,255,.75); background: var(--glass); }
+
+.tab-btn.active {
+
+  color: #7eb3ff;
+
+  border-bottom-color: var(--sky);
+
+  background: rgba(58,123,213,.1);
+
+}
+
+/* ── Tab Content ────────────────────────────────────────── */
+
+.tab-content { display: none; flex: 1; flex-direction: column; overflow: hidden; }
+
+.tab-content.active { display: flex; }
+
+/* ── CHAT TAB ───────────────────────────────────────────── */
+
+#chat-area {
+
+  flex: 1;
+
+  overflow-y: auto;
+
+  padding: 14px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+
+}
+
+.chat-msg {
+
+  display: flex;
+
+  flex-direction: column;
+
+  max-width: 85%;
+
+  animation: msg-in .25s ease;
+
+}
+
+@keyframes msg-in {
+
+  from { opacity: 0; transform: translateY(8px); }
+
+  to   { opacity: 1; transform: translateY(0); }
+
+}
+
+.chat-msg.student-a { align-self: flex-start; }
+
+.chat-msg.student-b { align-self: flex-start; }
+
+.chat-msg.teacher   { align-self: flex-start; }
+
+.chat-msg.user-msg  { align-self: flex-end; }
+
+.chat-meta {
+
+  font-size: 10px;
+
+  letter-spacing: 1px;
+
+  margin-bottom: 3px;
+
+  font-weight: 600;
+
+}
+
+.student-a .chat-meta { color: #7eb3ff; }
+
+.student-b .chat-meta { color: #a8d8a8; }
+
+.teacher   .chat-meta { color: var(--red); }
+
+.user-msg  .chat-meta { color: #b0c4ff; text-align: right; }
+
+.chat-bubble {
+
+  padding: 8px 12px;
+
+  border-radius: 10px;
+
+  font-size: 12.5px;
+
+  line-height: 1.5;
+
+  word-break: break-word;
+
+}
+
+.student-a .chat-bubble {
+
+  background: rgba(58,123,213,.2);
+
+  border: 1px solid rgba(58,123,213,.35);
+
+  border-bottom-left-radius: 2px;
+
+}
+
+.student-b .chat-bubble {
+
+  background: rgba(80,160,100,.15);
+
+  border: 1px solid rgba(80,160,100,.3);
+
+  border-bottom-left-radius: 2px;
+
+}
+
+.teacher .chat-bubble {
+
+  background: rgba(230,57,70,.12);
+
+  border: 1px solid rgba(230,57,70,.35);
+
+  border-bottom-left-radius: 2px;
+
+}
+
+.user-msg .chat-bubble {
+
+  background: rgba(58,123,213,.35);
+
+  border: 1px solid rgba(126,179,255,.4);
+
+  border-bottom-right-radius: 2px;
+
+}
+
+/* ── Chat Input ─────────────────────────────────────────── */
+
+.chat-input-row {
+
+  display: flex;
+
+  gap: 8px;
+
+  padding: 10px 14px;
+
+  border-top: 1px solid rgba(58,123,213,.25);
+
+  flex-shrink: 0;
+
+  background: rgba(0,0,0,.2);
+
+}
+
+.chat-input {
+
+  flex: 1;
+
+  background: rgba(255,255,255,.07);
+
+  border: 1px solid rgba(58,123,213,.4);
+
+  border-radius: 8px;
+
+  padding: 8px 12px;
+
+  color: var(--white);
+
+  font-family: var(--font-body);
+
+  font-size: 13px;
+
+  outline: none;
+
+  transition: border-color .2s;
+
+}
+
+.chat-input::placeholder { color: rgba(255,255,255,.3); }
+
+.chat-input:focus { border-color: var(--sky); }
+
+.btn-send {
+
+  background: linear-gradient(135deg, var(--sky), var(--navy-light));
+
+  border: none;
+
+  color: var(--white);
+
+  padding: 8px 16px;
+
+  border-radius: 8px;
+
+  font-family: var(--font-head);
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all .2s;
+
+  letter-spacing: 1px;
+
+}
+
+.btn-send:hover { opacity: .9; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(58,123,213,.4); }
+
+/* ── ANNOTATIONS TAB ────────────────────────────────────── */
+
+#annotations-tab { padding: 14px; overflow-y: auto; }
+
+.annotation-input-row {
+
+  display: flex; flex-direction: column; gap: 8px;
+
+  margin-bottom: 14px;
+
+  flex-shrink: 0;
+
+}
+
+.annot-input {
+
+  flex: 1;
+
+  background: rgba(255,255,255,.07);
+
+  border: 1px solid rgba(58,123,213,.4);
+
+  border-radius: 8px;
+
+  padding: 8px 12px;
+
+  color: var(--white);
+
+  font-family: var(--font-body);
+
+  font-size: 13px;
+
+  outline: none;
+
+  resize: none;
+
+  height: 70px;
+
+  transition: border-color .2s;
+
+}
+
+.annot-input::placeholder { color: rgba(255,255,255,.3); }
+
+.annot-input:focus { border-color: var(--sky); }
+
+.btn-add-note {
+
+  background: linear-gradient(135deg, #f9c74f, #f4a261);
+
+  border: none; color: #1a1a1a;
+
+  padding: 10px 14px;
+
+  border-radius: 8px;
+
+  font-family: var(--font-head);
+
+  font-size: 13px; font-weight: 700;
+
+  cursor: pointer; transition: all .2s;
+
+  white-space: nowrap;
+
+  width: 100%;
+
+}
+
+.btn-add-note:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(249,199,79,.35); }
+
+.notes-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+
+  gap: 10px;
+
+}
+
+.sticky-note {
+
+  border-radius: 4px;
+
+  padding: 10px;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+
+  box-shadow: 3px 4px 12px rgba(0,0,0,.4);
+
+  word-break: break-word;
+
+  position: relative;
+
+  animation: note-pop .3s cubic-bezier(.34,1.56,.64,1);
+
+  cursor: default;
+
+}
+
+@keyframes note-pop {
+
+  from { opacity: 0; transform: scale(.6) rotate(-5deg); }
+
+  to   { opacity: 1; transform: scale(1) rotate(0deg); }
+
+}
+
+.sticky-note::before {
+
+  content: '';
+
+  position: absolute;
+
+  top: 0; left: 0; right: 0;
+
+  height: 6px;
+
+  background: rgba(0,0,0,.12);
+
+  border-radius: 4px 4px 0 0;
+
+}
+
+.note-author {
+
+  font-size: 10px; font-weight: 700;
+
+  margin-bottom: 4px;
+
+  letter-spacing: .5px;
+
+}
+
+/* ── TASK BAR ────────────────────────────────────────────── */
+
+.task-bar {
+
+  background: linear-gradient(90deg, rgba(230,57,70,.15), rgba(230,57,70,.08));
+
+  border-top: 1px solid rgba(230,57,70,.4);
+
+  padding: 10px 16px;
+
+  display: flex; align-items: center; gap: 10px;
+
+  flex-shrink: 0;
+
+}
+
+.task-icon { font-size: 16px; }
+
+.task-label {
+
+  font-size: 10px;
+
+  letter-spacing: 2px;
+
+  color: var(--red);
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  font-family: var(--font-head);
+
+}
+
+#current-task-text {
+
+  font-size: 12.5px;
+
+  color: rgba(255,255,255,.85);
+
+  font-family: var(--font-body);
+
+  flex: 1;
+
+}
+
+.task-badge {
+
+  background: var(--red);
+
+  color: var(--white);
+
+  font-size: 9px;
+
+  letter-spacing: 1px;
+
+  padding: 2px 8px;
+
+  border-radius: 20px;
+
+  font-weight: 700;
+
+  animation: pulse-dot 2s ease-in-out infinite;
+
+}
+
+/* ══════════════════════════════════════════════════════════
+
+   EDUCATOR DASHBOARD (SCREEN OVERLAY)
+
+   ══════════════════════════════════════════════════════════ */
+
+#dash-screen {
+
+  position: fixed; inset: 0;
+
+  background: rgba(6,14,31,.92);
+
+  backdrop-filter: blur(12px);
+
+  z-index: 200;
+
+  display: none;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  animation: fade-in .3s ease;
+
+}
+
+#dash-screen.visible { display: flex; }
+
+@keyframes fade-in {
+
+  from { opacity: 0; } to { opacity: 1; }
+
+}
+
+.dash-card {
+
+  background: linear-gradient(160deg, rgba(26,58,107,.9), rgba(15,35,71,.95));
+
+  border: 1px solid rgba(58,123,213,.5);
+
+  border-radius: 16px;
+
+  padding: 32px;
+
+  width: 640px;
+
+  max-width: 95vw;
+
+  box-shadow: 0 24px 80px rgba(0,0,0,.6), 0 0 60px rgba(58,123,213,.15);
+
+}
+
+.dash-header {
+
+  display: flex; align-items: center; justify-content: space-between;
+
+  margin-bottom: 24px;
+
+  padding-bottom: 16px;
+
+  border-bottom: 1px solid rgba(58,123,213,.3);
+
+}
+
+.dash-title {
+
+  font-family: var(--font-head);
+
+  font-size: 22px; font-weight: 700;
+
+  letter-spacing: 2px;
+
+  color: var(--white);
+
+}
+
+.btn-back {
+
+  background: transparent;
+
+  border: 1px solid rgba(126,179,255,.4);
+
+  color: #7eb3ff;
+
+  padding: 7px 16px;
+
+  border-radius: 8px;
+
+  font-family: var(--font-head);
+
+  font-size: 12px; font-weight: 600;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  transition: all .2s;
+
+}
+
+.btn-back:hover { background: rgba(58,123,213,.2); border-color: var(--sky); }
+
+.dash-grid {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 16px;
+
+  margin-bottom: 20px;
+
+}
+
+.dash-section {
+
+  background: rgba(255,255,255,.04);
+
+  border: 1px solid rgba(58,123,213,.25);
+
+  border-radius: 10px;
+
+  padding: 14px;
+
+}
+
+.dash-section-title {
+
+  font-family: var(--font-head);
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  letter-spacing: 2px;
+
+  color: var(--sky);
+
+  text-transform: uppercase;
+
+  margin-bottom: 10px;
+
+}
+
+.student-list { display: flex; flex-direction: column; gap: 6px; }
+
+.student-item {
+
+  display: flex; align-items: center; gap: 8px;
+
+  padding: 6px 10px;
+
+  background: rgba(255,255,255,.05);
+
+  border-radius: 6px;
+
+  font-size: 12.5px;
+
+}
+
+.s-dot {
+
+  width: 7px; height: 7px; border-radius: 50%; background: #00e676;
+
+  box-shadow: 0 0 6px #00e676; flex-shrink: 0;
+
+}
+
+.s-role {
+
+  margin-left: auto;
+
+  font-size: 10px;
+
+  letter-spacing: 1px;
+
+  padding: 1px 6px; border-radius: 10px;
+
+  font-weight: 600;
+
+}
+
+.s-role.student { background: rgba(58,123,213,.25); color: #7eb3ff; }
+
+.s-role.teacher { background: rgba(230,57,70,.2); color: var(--red); }
+
+.current-task-display {
+
+  background: rgba(230,57,70,.1);
+
+  border: 1px solid rgba(230,57,70,.35);
+
+  border-radius: 8px;
+
+  padding: 10px 14px;
+
+  font-size: 13px;
+
+  color: rgba(255,255,255,.85);
+
+  line-height: 1.5;
+
+}
+
+.dash-push-section {
+
+  display: flex; flex-direction: column; gap: 10px;
+
+}
+
+.dash-input {
+
+  background: rgba(255,255,255,.07);
+
+  border: 1px solid rgba(58,123,213,.4);
+
+  border-radius: 8px;
+
+  padding: 10px 14px;
+
+  color: var(--white);
+
+  font-family: var(--font-body);
+
+  font-size: 13px;
+
+  outline: none;
+
+  transition: border-color .2s;
+
+  resize: none;
+
+  height: 60px;
+
+}
+
+.dash-input::placeholder { color: rgba(255,255,255,.3); }
+
+.dash-input:focus { border-color: var(--sky); }
+
+.btn-push {
+
+  background: linear-gradient(135deg, var(--red), #c1121f);
+
+  border: none; color: var(--white);
+
+  padding: 10px;
+
+  border-radius: 8px;
+
+  font-family: var(--font-head);
+
+  font-size: 14px; font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  cursor: pointer;
+
+  transition: all .2s;
+
+  box-shadow: 0 4px 14px rgba(230,57,70,.35);
+
+}
+
+.btn-push:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(230,57,70,.55); }
+
+.push-confirm {
+
+  text-align: center;
+
+  font-size: 12px;
+
+  color: #00e676;
+
+  letter-spacing: 1px;
+
+  opacity: 0;
+
+  transition: opacity .3s;
+
+}
+
+.push-confirm.show { opacity: 1; }
+
+/* ── Utility ────────────────────────────────────────────── */
+
+.flex-1 { flex: 1; }
+
+/* ══════════════════════════════════════════════════════════
+
+   AUTHENTICATION SCREEN
+
+   ══════════════════════════════════════════════════════════ */
+
+#auth-screen {
+
+  position: fixed;
+
+  inset: 0;
+
+  background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(26,58,107,.95) 0%, rgba(6,14,31,.98) 100%);
+
+  backdrop-filter: blur(20px);
+
+  z-index: 300;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  animation: fade-in .4s ease;
+
+}
+
+#auth-screen.hidden {
+
+  display: none;
+
+}
+
+.auth-card {
+
+  background: linear-gradient(160deg, rgba(26,58,107,.85), rgba(15,35,71,.95));
+
+  border: 2px solid rgba(58,123,213,.5);
+
+  border-radius: 20px;
+
+  padding: 40px;
+
+  width: 420px;
+
+  max-width: 90vw;
+
+  box-shadow: 0 24px 80px rgba(0,0,0,.7), 0 0 100px rgba(58,123,213,.2);
+
+  text-align: center;
+
+  animation: slide-up .5s cubic-bezier(.34,1.56,.64,1);
+
+}
+
+@keyframes slide-up {
+
+  from { opacity: 0; transform: translateY(30px) scale(.95); }
+
+  to { opacity: 1; transform: translateY(0) scale(1); }
+
+}
+
+.auth-logo {
+
+  width: 70px;
+
+  height: 70px;
+
+  margin: 0 auto 16px;
+
+  background: linear-gradient(135deg, var(--sky), var(--navy-light));
+
+  border-radius: 16px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 36px;
+
+  box-shadow: 0 8px 24px var(--sky-glow), 0 0 40px rgba(58,123,213,.3);
+
+}
+
+.auth-title {
+
+  font-family: var(--font-head);
+
+  font-size: 26px;
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  background: linear-gradient(90deg, #ffffff, #7eb3ff);
+
+  -webkit-background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+
+  margin-bottom: 6px;
+
+}
+
+.auth-subtitle {
+
+  font-size: 11px;
+
+  letter-spacing: 3px;
+
+  color: rgba(126,179,255,.6);
+
+  text-transform: uppercase;
+
+  margin-bottom: 32px;
+
+}
+
+.auth-form {
+
+  display: none;
+
+  flex-direction: column;
+
+  gap: 14px;
+
+}
+
+.auth-form.active {
+
+  display: flex;
+
+}
+
+.form-title {
+
+  font-family: var(--font-head);
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  letter-spacing: 1.5px;
+
+  color: var(--white);
+
+  margin-bottom: 6px;
+
+  text-align: left;
+
+}
+
+.auth-input {
+
+  background: rgba(255,255,255,.08);
+
+  border: 1px solid rgba(58,123,213,.4);
+
+  border-radius: 10px;
+
+  padding: 12px 16px;
+
+  color: var(--white);
+
+  font-family: var(--font-body);
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition: all .25s;
+
+}
+
+.auth-input::placeholder {
+
+  color: rgba(255,255,255,.35);
+
+}
+
+.auth-input:focus {
+
+  border-color: var(--sky);
+
+  background: rgba(255,255,255,.12);
+
+  box-shadow: 0 0 0 3px rgba(58,123,213,.15);
+
+}
+
+.auth-options {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  font-size: 12px;
+
+}
+
+.remember-me {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  color: rgba(255,255,255,.7);
+
+  cursor: pointer;
+
+}
+
+.remember-me input[type="checkbox"] {
+
+  cursor: pointer;
+
+}
+
+.forgot-link {
+
+  color: var(--sky);
+
+  text-decoration: none;
+
+  transition: color .2s;
+
+}
+
+.forgot-link:hover {
+
+  color: #7eb3ff;
+
+}
+
+.btn-auth {
+
+  background: linear-gradient(135deg, var(--sky), var(--navy-light));
+
+  border: none;
+
+  color: var(--white);
+
+  padding: 13px 24px;
+
+  border-radius: 10px;
+
+  font-family: var(--font-head);
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  cursor: pointer;
+
+  transition: all .25s;
+
+  box-shadow: 0 6px 20px rgba(58,123,213,.4);
+
+  margin-top: 8px;
+
+}
+
+.btn-auth:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 28px rgba(58,123,213,.6);
+
+}
+
+.btn-auth:active {
+
+  transform: translateY(0);
+
+}
+
+.auth-toggle {
+
+  margin-top: 8px;
+
+  font-size: 13px;
+
+  color: rgba(255,255,255,.6);
+
+}
+
+.auth-toggle a {
+
+  color: var(--sky);
+
+  text-decoration: none;
+
+  font-weight: 600;
+
+  transition: color .2s;
+
+}
+
+.auth-toggle a:hover {
+
+  color: #7eb3ff;
+
+}
+
+.auth-error {
+
+  margin-top: 16px;
+
+  padding: 10px 14px;
+
+  background: rgba(230,57,70,.15);
+
+  border: 1px solid rgba(230,57,70,.4);
+
+  border-radius: 8px;
+
+  color: var(--red);
+
+  font-size: 12px;
+
+  display: none;
+
+}
+
+.auth-error.show {
+
+  display: block;
+
+  animation: shake .4s ease;
+
+}
+
+@keyframes shake {
+
+  0%, 100% { transform: translateX(0); }
+
+  25% { transform: translateX(-8px); }
+
+  75% { transform: translateX(8px); }
+
+}
+
+/* User profile indicator in topnav */
+
+.user-profile {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 6px 12px;
+
+  background: rgba(58,123,213,.2);
+
+  border: 1px solid rgba(58,123,213,.4);
+
+  border-radius: 8px;
+
+  font-size: 12px;
+
+}
+
+.user-avatar {
+
+  width: 26px;
+
+  height: 26px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(135deg, var(--sky), var(--navy-light));
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 14px;
+
+}
+
+.btn-logout {
+
+  background: transparent;
+
+  border: 1px solid rgba(230,57,70,.5);
+
+  color: rgba(230,57,70,.85);
+
+  padding: 6px 12px;
+
+  border-radius: 6px;
+
+  font-family: var(--font-head);
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all .2s;
+
+}
+
+.btn-logout:hover {
+
+  background: rgba(230,57,70,.15);
+
+  border-color: var(--red);
+
+}
+
+/* ── Chemistry Molecule ─────────────────────────────────── */
+
+.model-molecule {
+
+  width: 180px; height: 180px;
+
+  position: relative;
+
+  animation: spin-3d 8s linear infinite;
+
+}
+
+.atom {
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  color: #fff;
+
+  box-shadow: 0 0 12px currentColor;
+
+}
+
+.bond {
+
+  position: absolute;
+
+  background: linear-gradient(90deg, rgba(126,179,255,.6), rgba(126,179,255,.2));
+
+  height: 3px;
+
+  transform-origin: left center;
+
+  border-radius: 2px;
+
+}
+
+/* ── Binary Tree ────────────────────────────────────────── */
+
+.model-tree {
+
+  width: 220px; height: 200px;
+
+  position: relative;
+
+  animation: fade-pulse 3s ease-in-out infinite;
+
+}
+
+@keyframes fade-pulse {
+
+  0%, 100% { opacity: 1; }
+
+  50% { opacity: 0.7; }
+
+}
+
+.tree-node {
+
+  position: absolute;
+
+  width: 36px; height: 36px;
+
+  background: linear-gradient(135deg, var(--sky), var(--navy-light));
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: #fff;
+
+  border: 2px solid rgba(126,179,255,.6);
+
+  box-shadow: 0 0 12px rgba(58,123,213,.5);
+
+}
+
+.tree-line {
+
+  position: absolute;
+
+  background: rgba(126,179,255,.4);
+
+  height: 2px;
+
+  transform-origin: left center;
+
+}
+
+/* ── Gear System ────────────────────────────────────────── */
+
+.model-gears {
+
+  width: 200px; height: 160px;
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+}
+
+.gear {
+
+  position: relative;
+
+  border-radius: 50%;
+
+  background: radial-gradient(circle at 35% 35%, #7eb3ff, var(--sky), var(--navy-light));
+
+  box-shadow: 0 0 20px rgba(58,123,213,.4), inset 0 -4px 12px rgba(0,0,0,.3);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+.gear::before {
+
+  content: '';
+
+  position: absolute;
+
+  inset: 20%;
+
+  border-radius: 50%;
+
+  background: radial-gradient(circle, var(--navy-dark), var(--navy-mid));
+
+  box-shadow: 0 2px 8px rgba(0,0,0,.5);
+
+}
+
+.gear-tooth {
+
+  position: absolute;
+
+  width: 8px;
+
+  height: 16px;
+
+  background: linear-gradient(180deg, #7eb3ff, var(--navy-light));
+
+  border-radius: 2px;
+
+}
+
+/* ── Human Heart ────────────────────────────────────────── */
+
+.model-heart {
+
+  width: 140px; height: 160px;
+
+  position: relative;
+
+  animation: heartbeat 1.2s ease-in-out infinite;
+
+}
+
+@keyframes heartbeat {
+
+  0%, 100% { transform: scale(1); }
+
+  10%, 30% { transform: scale(1.1); }
+
+  20%, 40% { transform: scale(1.05); }
+
+}
+
+.heart-shape {
+
+  position: absolute;
+
+  width: 100%;
+
+  height: 100%;
+
+  background: radial-gradient(ellipse at 35% 35%, #ff6b8a, #e63946, #c1121f);
+
+  clip-path: path('M70,20 C70,10 60,0 50,0 C40,0 30,10 30,20 C10,20 0,35 0,55 C0,85 30,110 50,140 C70,110 100,85 100,55 C100,35 90,20 70,20 Z');
+
+  filter: drop-shadow(0 0 15px rgba(230,57,70,.6));
+
+  box-shadow: inset 0 -10px 20px rgba(0,0,0,.3);
+
+}
+
+.heart-valve {
+
+  position: absolute;
+
+  width: 20px;
+
+  height: 20px;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,.3);
+
+  border: 2px solid rgba(255,255,255,.5);
+
+}
+
+/* ── Earth Layers ───────────────────────────────────────── */
+
+.model-earth {
+
+  width: 180px; height: 180px;
+
+  position: relative;
+
+  animation: spin-slow 15s linear infinite;
+
+}
+
+.earth-layer {
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  top: 50%;
+
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  color: rgba(255,255,255,.8);
+
+  text-shadow: 0 0 4px rgba(0,0,0,.8);
+
+}
+
+/* ── Robot Arm ──────────────────────────────────────────── */
+
+.model-robot {
+
+  width: 180px; height: 200px;
+
+  position: relative;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: center;
+
+}
+
+.robot-base {
+
+  position: absolute;
+
+  bottom: 0;
+
+  width: 60px;
+
+  height: 20px;
+
+  background: linear-gradient(180deg, var(--navy-light), var(--navy-dark));
+
+  border-radius: 4px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,.5);
+
+}
+
+.robot-segment {
+
+  position: absolute;
+
+  background: linear-gradient(90deg, var(--sky), var(--navy-light));
+
+  border-radius: 4px;
+
+  box-shadow: 0 2px 8px rgba(58,123,213,.4);
+
+}
+
+.robot-joint {
+
+  position: absolute;
+
+  width: 12px;
+
+  height: 12px;
+
+  background: radial-gradient(circle, #7eb3ff, var(--navy-mid));
+
+  border-radius: 50%;
+
+  border: 2px solid var(--sky);
+
+  box-shadow: 0 0 8px var(--sky-glow);
+
+}
+
+/* ── Punnett Square ─────────────────────────────────────── */
+
+.model-punnett {
+
+  width: 180px; height: 180px;
+
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns: 40px repeat(2, 1fr);
+
+  grid-template-rows: 40px repeat(2, 1fr);
+
+  gap: 4px;
+
+  animation: fade-pulse 4s ease-in-out infinite;
+
+}
+
+.punnett-cell {
+
+  background: rgba(58,123,213,.2);
+
+  border: 2px solid rgba(126,179,255,.4);
+
+  border-radius: 6px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-family: var(--font-head);
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  color: #7eb3ff;
+
+}
+
+.punnett-header {
+
+  background: rgba(58,123,213,.4);
+
+  border-color: var(--sky);
+
+  color: #fff;
+
+}
+
+/* ── Carbon Cycle ───────────────────────────────────────── */
+
+.model-carbon {
+
+  width: 200px; height: 200px;
+
+  position: relative;
+
+  animation: spin-slow 20s linear infinite;
+
+}
+
+.carbon-node {
+
+  position: absolute;
+
+  width: 50px;
+
+  height: 50px;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 24px;
+
+  border: 2px solid rgba(126,179,255,.5);
+
+  box-shadow: 0 0 12px rgba(58,123,213,.4);
+
+}
+
+.carbon-arrow {
+
+  position: absolute;
+
+  width: 2px;
+
+  background: linear-gradient(180deg, var(--sky), transparent);
+
+  transform-origin: top center;
+
+}
+
+.carbon-arrow::after {
+
+  content: '';
+
+  position: absolute;
+
+  bottom: 0;
+
+  left: -3px;
+
+  width: 0;
+
+  height: 0;
+
+  border-left: 4px solid transparent;
+
+  border-right: 4px solid transparent;
+
+  border-top: 8px solid var(--sky);
+
+}
+</style>
+
+</head>
+
+<body>
+
+    
+
+    <style>
+
+  #app { display: none; }
+
+  #auth-screen.hidden { display: none !important; }
+
+</style>
+
+    
+
+    <!-- ════════════════════════════════════════════════════════
+
+     AUTHENTICATION SCREEN
+
+     ════════════════════════════════════════════════════════ -->
+
+<div id="auth-screen">
+
+  <div class="auth-card">
+
+    <div class="auth-logo">🔬</div>
+
+    <div class="auth-title">CollabAR Learning Hub</div>
+
+    <div class="auth-subtitle">PLMun · Collaborative AR Education</div>
+
+    
+
+
+
+    <div id="login-form" class="auth-form active">
+
+      <h3 class="form-title">Sign In</h3>
+
+      <input type="email" class="auth-input" id="login-email" placeholder="Email Address" />
+
+      <input type="password" class="auth-input" id="login-password" placeholder="Password" />
+
+      <div class="auth-options">
+
+        <label class="remember-me">
+
+          <input type="checkbox" id="login-remember" />
+
+          <span>Remember me</span>
+
+        </label>
+
+        <a href="#" class="forgot-link">Forgot password?</a>
+
+      </div>
+
+      <button class="btn-auth" onclick="handleLogin()">🚀 Sign In</button>
+
+      <div class="auth-toggle">
+
+        New to CollabAR? <a href="#" onclick="showSignup()">Create an account</a>
+
+      </div>
+
+    </div>
+
+    
+
+
+
+    <div id="signup-form" class="auth-form">
+
+      <h3 class="form-title">Create Account</h3>
+
+      <input type="text" class="auth-input" id="signup-name" placeholder="Full Name" />
+
+      <input type="email" class="auth-input" id="signup-email" placeholder="Email Address" />
+
+      <input type="password" class="auth-input" id="signup-password" placeholder="Password (min. 6 characters)" />
+
+      <select class="auth-input" id="signup-role">
+
+        <option value="">Select Role</option>
+
+        <option value="student">🎓 Student</option>
+
+        <option value="teacher">👨‍🏫 Teacher</option>
+
+      </select>
+
+      <button class="btn-auth" onclick="handleSignup()">✨ Create Account</button>
+
+      <div class="auth-toggle">
+
+        Already have an account? <a href="#" onclick="showLogin()">Sign in</a>
+
+      </div>
+
+    </div>
+
+    
+
+    <div class="auth-error" id="auth-error"></div>
+
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+
+     EDUCATOR DASHBOARD (overlay screen)
+
+     ════════════════════════════════════════════════════════ -->
+
+<div id="dash-screen">
+
+  <div class="dash-card">
+
+    <div class="dash-header">
+
+      <div>
+
+        <div class="dash-title">🎓 EDUCATOR DASHBOARD</div>
+
+        <div style="font-size:11px;color:rgba(126,179,255,.6);letter-spacing:2px;margin-top:3px;">LIVE SESSION CONTROL</div>
+
+      </div>
+
+      <button class="btn-back" onclick="closeDash()">← BACK TO CLASS</button>
+
+    </div>
+
+    <div class="dash-grid">
+
+
+
+      <div class="dash-section">
+
+        <div class="dash-section-title">👥 Active Students</div>
+
+        <div class="student-list">
+
+          <div class="student-item">
+
+            <span class="s-dot"></span>
+
+            <span>Ms. Reyes</span>
+
+            <span class="s-role teacher">Teacher</span>
+
+          </div>
+
+          <div class="student-item">
+
+            <span class="s-dot"></span>
+
+            <span>Ana L. (Student A)</span>
+
+            <span class="s-role student">Student</span>
+
+          </div>
+
+          <div class="student-item">
+
+            <span class="s-dot"></span>
+
+            <span>Marco D. (Student B)</span>
+
+            <span class="s-role student">Student</span>
+
+          </div>
+
+          <div class="student-item">
+
+            <span class="s-dot" style="background:#f9c74f;box-shadow:0 0 6px #f9c74f;"></span>
+
+            <span>You</span>
+
+            <span class="s-role student">Student</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="dash-section">
+
+        <div class="dash-section-title">📌 Current Task</div>
+
+        <div class="current-task-display" id="dash-task-display">
+
+          Task: Identify the Gene Mutation!
+
+        </div>
+
+        <div style="margin-top:10px;font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px;">
+
+          Subject: <span id="dash-subject-label" style="color:#7eb3ff;">Biology</span>
+
+        </div>
+
+        <div style="margin-top:6px;font-size:11px;color:rgba(255,255,255,.4);">
+
+          Session Duration: <span style="color:#00e676;">00:23:47</span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="dash-section dash-push-section">
+
+      <div class="dash-section-title">📢 Push New Task to Class</div>
+
+      <textarea class="dash-input" id="dash-task-input"
+
+        placeholder="Type a new collaborative task for the class…"></textarea>
+
+      <button class="btn-push" onclick="pushTask()">⚡ PUSH TASK TO STUDENTS</button>
+
+      <div class="push-confirm" id="push-confirm">✅ Task pushed successfully!</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+
+     MAIN APP
+
+     ════════════════════════════════════════════════════════ -->
+
+<div id="app">
+
+  <!-- ── TOP NAV ────────────────────────────────────────  -->
+
+  <nav id="topnav">
+
+    <div class="nav-brand">
+
+      <div class="nav-logo">🔬</div>
+
+      <div>
+
+        <div class="nav-title">CollabAR</div>
+
+        <div class="nav-subtitle">Learning Hub · PLMun</div>
+
+      </div>
+
+    </div>
+
+    <div class="nav-right">
+
+      <span class="status-dot"></span>
+
+      <span class="status-label">LIVE SESSION</span>
+
+      <button class="btn-dash" onclick="openDash()">🎓 EDUCATOR DASHBOARD</button>
+
+    </div>
+
+  </nav>
+
+  <!-- ── MAIN ───────────────────────────────────────────  -->
+
+  <div id="main">
+
+    <!-- ═══════════════════════════════════════════════════
+
+         LEFT - AR PANEL
+
+         ═══════════════════════════════════════════════════ -->
+
+    <div id="ar-panel">
+
+
+
+      <div class="ar-toolbar">
+
+        <span class="ar-label">Subject</span>
+
+        <select class="subject-select" id="subject-select" onchange="changeSubject(this.value)">
+
+  <option value="biology">🧬 Biology - DNA</option>
+
+  <option value="chemistry">⚗️ Chemistry - Molecules</option>
+
+  <option value="physics">⚛️ Physics - Pendulum</option>
+
+  <option value="math">📐 Mathematics - Geometry</option>
+
+  <option value="astronomy">🪐 Astronomy - Solar System</option>
+
+  <option value="compsci">💻 Computer Science - Algorithms</option>
+
+  <option value="engineering">⚙️ Engineering - Mechanics</option>
+
+  <option value="anatomy">🫀 Anatomy - Human Body</option>
+
+  <option value="geology">🌋 Geology - Earth Science</option>
+
+  <option value="robotics">🤖 Robotics - Automation</option>
+
+  <option value="genetics">🧪 Genetics - Heredity</option>
+
+  <option value="environment">🌱 Environmental Science</option>
+
+</select>
+
+        <span class="ar-badge">▶ AR ACTIVE</span>
+
+      </div>
+
+
+
+      <div id="ar-viewport">
+
+
+
+        <div class="ar-hud" id="ar-hud-text">TRACKING · BIOLOGY · DNA HELIX MODEL</div>
+
+
+
+        <div class="ar-corner tl"></div>
+
+        <div class="ar-corner tr"></div>
+
+        <div class="ar-corner bl"></div>
+
+        <div class="ar-corner br"></div>
+
+        <div class="ar-crosshair"></div>
+
+
+
+        <div id="model-stage">
+
+          <div class="model-glow"></div>
+
+          <!--Models injected by JS  -->
+
+          <div id="model-container"></div>
+
+        </div>
+
+
+
+        <div class="ar-grid">
+
+          <svg class="ar-grid-svg" viewBox="0 0 260 80" fill="none" xmlns=[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)>
+
+            <!--Perspective grid lines horizontal  -->
+
+            <line x1="0"   y1="80" x2="130" y2="10" stroke="rgba(58,123,213,.35)" stroke-width="1"/>
+
+            <line x1="65"  y1="80" x2="160" y2="10" stroke="rgba(58,123,213,.25)" stroke-width="1"/>
+
+            <line x1="130" y1="80" x2="195" y2="10" stroke="rgba(58,123,213,.35)" stroke-width="1"/>
+
+            <line x1="195" y1="80" x2="230" y2="10" stroke="rgba(58,123,213,.2)"  stroke-width="1"/>
+
+            <line x1="260" y1="80" x2="260" y2="10" stroke="rgba(58,123,213,.15)" stroke-width="1"/>
+
+            <!--Verticals  -->
+
+            <line x1="0" y1="80" x2="260" y2="80" stroke="rgba(58,123,213,.5)" stroke-width="1"/>
+
+            <line x1="32" y1="60" x2="228" y2="60" stroke="rgba(58,123,213,.25)" stroke-width="1"/>
+
+            <line x1="64" y1="43" x2="196" y2="43" stroke="rgba(58,123,213,.2)"  stroke-width="1"/>
+
+            <line x1="96" y1="28" x2="164" y2="28" stroke="rgba(58,123,213,.15)" stroke-width="1"/>
+
+            <!--Horizon dot  -->
+
+            <circle cx="130" cy="10" r="3" fill="rgba(58,123,213,.6)"/>
+
+          </svg>
+
+        </div>
+
+
+
+        <div class="ar-model-info">
+
+          <div class="ar-model-info-title">🔍 Model Info</div>
+
+          <div class="ar-model-info-val" id="model-info-val">
+
+            DNA Double Helix<br>
+
+            Scale: 1.0×<br>
+
+            Rotation: Active
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="ar-controls">
+
+        <span class="ar-explore-label">✨ Move & Explore the 3D Model!</span>
+
+        <button class="btn-ar" id="btn-rotate" onclick="toggleRotate()">
+
+          🔄 Rotate
+
+        </button>
+
+        <button class="btn-ar" id="btn-scale" onclick="toggleScale()">
+
+          🔍 Scale
+
+        </button>
+
+        <button class="btn-ar" onclick="resetModel()" style="border-color:rgba(230,57,70,.5);color:rgba(230,57,70,.85);">
+
+          ↺ Reset
+
+        </button>
+
+      </div>
+
+    </div><!-- /#ar-panel  -->
+
+    <!-- ═══════════════════════════════════════════════════
+
+         RIGHT - COLLABORATION PANEL
+
+         ═══════════════════════════════════════════════════ -->
+
+    <div id="collab-panel">
+
+
+
+      <div class="tab-bar">
+
+        <button class="tab-btn active" onclick="switchTab('chat',this)">
+
+          💬 Chat
+
+        </button>
+
+        <button class="tab-btn" onclick="switchTab('annotations',this)">
+
+          📌 Annotations
+
+        </button>
+
+      </div>
+
+      <!-- ── CHAT TAB ───────────────────────────────────  -->
+
+      <div class="tab-content active" id="tab-chat">
+
+        <div id="chat-area">
+
+
+
+          <div class="chat-msg teacher">
+
+            <div class="chat-meta">🎓 Ms. Reyes · Teacher · 2:14 PM</div>
+
+            <div class="chat-bubble">Good afternoon, class! Today we're exploring the <strong>DNA double helix</strong> using our AR model. Try rotating it and see if you can spot the base pairs!</div>
+
+          </div>
+
+          <div class="chat-msg student-a">
+
+            <div class="chat-meta">🔵 Student A (Ana) · 2:15 PM</div>
+
+            <div class="chat-bubble">Whoa, this is so cool! I can see the adenine-thymine bonds clearly 🤩</div>
+
+          </div>
+
+          <div class="chat-msg student-b">
+
+            <div class="chat-meta">🟢 Student B (Marco) · 2:15 PM</div>
+
+            <div class="chat-bubble">I scaled it up and now I can see it way better! The guanine-cytosine pair is on the upper right.</div>
+
+          </div>
+
+          <div class="chat-msg teacher">
+
+            <div class="chat-meta">🎓 Ms. Reyes · Teacher · 2:16 PM</div>
+
+            <div class="chat-bubble">Excellent observations! Remember - our task is to <span style="color:#e63946;font-weight:600;">identify the gene mutation point</span>. Look for the mismatched base pair!</div>
+
+          </div>
+
+          <div class="chat-msg student-a">
+
+            <div class="chat-meta">🔵 Student A (Ana) · 2:17 PM</div>
+
+            <div class="chat-bubble">I think I found it! There's an extra cytosine on the third rung from the top - that could be the insertion mutation!</div>
+
+          </div>
+
+          <div class="chat-msg student-b">
+
+            <div class="chat-meta">🟢 Student B (Marco) · 2:18 PM</div>
+
+            <div class="chat-bubble">Good catch, Ana! I added an annotation to mark it. Check the Annotations tab 📌</div>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="chat-input-row">
+
+          <input class="chat-input" id="chat-input" placeholder="Type your message…" 
+
+                 onkeydown="if(event.key==='Enter') sendMsg()"/>
+
+          <button class="btn-send" onclick="sendMsg()">SEND →</button>
+
+        </div>
+
+      </div>
+
+      <!-- ── ANNOTATIONS TAB ────────────────────────────  -->
+
+      <div class="tab-content" id="tab-annotations">
+
+        <div style="padding:14px 14px 0; flex-shrink:0;">
+
+          <div class="annotation-input-row">
+
+            <textarea class="annot-input" id="annot-input"
+
+              placeholder="Add an annotation about the AR model…"
+
+              onkeydown="if(event.ctrlKey&&event.key==='Enter')addNote()"></textarea>
+
+            <button class="btn-add-note" onclick="addNote()">+ Add Note</button>
+
+          </div>
+
+        </div>
+
+        <div id="annotations-tab" style="flex:1; overflow-y:auto;">
+
+          <div class="notes-grid" id="notes-grid">
+
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ── TASK BAR ──────────────────────────────────  -->
+
+      <div class="task-bar">
+
+        <span class="task-icon">🎯</span>
+
+        <span class="task-label">Task</span>
+
+        <span id="current-task-text">Identify the Gene Mutation!</span>
+
+        <span class="task-badge">ACTIVE</span>
+
+      </div>
+
+    </div><!-- /#collab-panel  -->
+
+  </div><!-- /#main  -->
+
+</div><!-- /#app  -->
+
+<!-- ════════════════════════════════════════════════════════
+
+     JAVASCRIPT
+
+     ════════════════════════════════════════════════════════ -->
+
+<script>
+
+/* ══════════════════════════════════════════════════════════
+
+   USER SESSION & AUTHENTICATION
+
+   ══════════════════════════════════════════════════════════ */
+
+let currentUser = null;
+
+function initAuth() {
+
+  const saved = localStorage.getItem('collabAR_user');
+
+  if (saved) {
+
+    currentUser = JSON.parse(saved);
+
+    showApp();
+
+  } else {
+
+    document.getElementById('auth-screen').classList.remove('hidden');
+
+  }
+
+}
+
+function showLogin() {
+
+  document.getElementById('login-form').classList.add('active');
+
+  document.getElementById('signup-form').classList.remove('active');
+
+  hideError();
+
+}
+
+function showSignup() {
+
+  document.getElementById('signup-form').classList.add('active');
+
+  document.getElementById('login-form').classList.remove('active');
+
+  hideError();
+
+}
+
+function handleLogin() {
+
+  const email = document.getElementById('login-email').value.trim();
+
+  const password = document.getElementById('login-password').value;
+
+  const remember = document.getElementById('login-remember').checked;
+
+  
+
+  if (!email || !password) {
+
+    showError('Please fill in all fields');
+
+    return;
+
+  }
+
+  
+
+  const users = JSON.parse(localStorage.getItem('collabAR_users') || '[]');
+
+  const user = users.find(u => u.email === email && u.password === password);
+
+  
+
+  if (user) {
+
+    currentUser = { name: user.name, email: user.email, role: user.role };
+
+    if (remember) localStorage.setItem('collabAR_user', JSON.stringify(currentUser));
+
+    showApp();
+
+  } else {
+
+    showError('Invalid email or password');
+
+  }
+
+}
+
+function handleSignup() {
+
+  const name = document.getElementById('signup-name').value.trim();
+
+  const email = document.getElementById('signup-email').value.trim();
+
+  const password = document.getElementById('signup-password').value;
+
+  const role = document.getElementById('signup-role').value;
+
+  
+
+  if (!name || !email || !password || !role) {
+
+    showError('Please fill in all fields');
+
+    return;
+
+  }
+
+  
+
+  if (password.length < 6) {
+
+    showError('Password must be at least 6 characters');
+
+    return;
+
+  }
+
+  
+
+  const users = JSON.parse(localStorage.getItem('collabAR_users') || '[]');
+
+  
+
+  if (users.find(u => u.email === email)) {
+
+    showError('Email already registered');
+
+    return;
+
+  }
+
+  
+
+  users.push({ name, email, password, role });
+
+  localStorage.setItem('collabAR_users', JSON.stringify(users));
+
+  
+
+  currentUser = { name, email, role };
+
+  localStorage.setItem('collabAR_user', JSON.stringify(currentUser));
+
+  showApp();
+
+}
+
+function showApp() {
+  document.getElementById('auth-screen').classList.add('hidden');
+  document.getElementById('app').style.display = 'flex';
+  updateUserProfile();
+  loadChatForSubject(currentSubject);
+  loadModel('dna');
+  applyRotate();
+  document.getElementById('notes-grid').innerHTML = '';
+  PRESET_NOTES.forEach(n => addNoteToGrid(n.text, n.author, n.color));
+}
+
+function updateUserProfile() {
+
+  const navRight = document.querySelector('.nav-right');
+
+  const existingProfile = navRight.querySelector('.user-profile');
+
+  
+
+  if (existingProfile) existingProfile.remove();
+
+  
+
+  const roleIcon = currentUser.role === 'teacher' ? '👨‍🏫' : '🎓';
+
+  const avatar = currentUser.name.charAt(0).toUpperCase();
+
+  
+
+  const profileDiv = document.createElement('div');
+
+  profileDiv.className = 'user-profile';
+
+  profileDiv.innerHTML = `
+
+    <div class="user-avatar">${avatar}</div>
+
+    <span style="color:rgba(255,255,255,.8);">${roleIcon} ${currentUser.name}</span>
+
+  `;
+
+  
+
+  navRight.insertBefore(profileDiv, navRight.querySelector('.btn-dash'));
+
+  
+
+  const logoutBtn = document.createElement('button');
+
+  logoutBtn.className = 'btn-logout';
+
+  logoutBtn.textContent = '🚪 Logout';
+
+  logoutBtn.onclick = handleLogout;
+
+  navRight.appendChild(logoutBtn);
+
+  
+
+  if (currentUser.role !== 'teacher') {
+
+    document.querySelector('.btn-dash').style.display = 'none';
+
+  }
+
+}
+
+function handleLogout() {
+
+  if (confirm('Are you sure you want to logout?')) {
+
+    localStorage.removeItem('collabAR_user');
+
+    currentUser = null;
+
+    location.reload();
+
+  }
+
+}
+
+function showError(msg) {
+
+  const errDiv = document.getElementById('auth-error');
+
+  errDiv.textContent = msg;
+
+  errDiv.classList.add('show');
+
+}
+
+function hideError() {
+
+  document.getElementById('auth-error').classList.remove('show');
+
+}
+
+/* ══════════════════════════════════════════════════════════
+
+   CHAT SYSTEM WITH SUBJECT CONTEXT
+
+   ══════════════════════════════════════════════════════════ */
+
+const CHAT_DATA = {
+  Biology: [
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Good afternoon, class! Today we\'re exploring the <strong>DNA double helix</strong> using our AR model. Try rotating it and see if you can spot the base pairs!' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'Whoa, this is so cool! I can see the adenine-thymine bonds clearly 🤩' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'I scaled it up and now I can see it way better! The guanine-cytosine pair is on the upper right.' },
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Excellent! Remember — our task is to <span style="color:#e63946;font-weight:600;">identify the gene mutation point</span>. Look for the mismatched base pair!' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'I think I found it! Extra cytosine on the third rung — that could be an insertion mutation! 🧬' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'Good catch Ana! I added an annotation to mark it. Check the Annotations tab 📌' },
+  ],
+  Physics: [
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Today we\'re studying the <strong>simple pendulum</strong>. Observe how the period depends on length, not mass!' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'I see it swinging! Is the formula T = 2π√(L/g)? ⚛️' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'Yes! Gravity g ≈ 9.8 m/s². A 1-meter pendulum has a period of about 2 seconds.' },
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Exactly Marco! Now <span style="color:#e63946;font-weight:600;">calculate the period of oscillation</span> for this model. What is the estimated length?' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'It looks like about 0.5 m… so T ≈ 1.4 seconds?' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'That matches what I am seeing! The swing timing is really close to that.' },
+  ],
+  Math: [
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Let\'s explore this <strong>octahedron</strong>! Can you calculate its surface area if each edge is 5 cm?' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'It has 8 equilateral triangle faces, so 8 × (√3/4 × 5²)? 📐' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'That gives us approximately 86.6 cm²! The symmetry is amazing.' },
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Perfect! Now <span style="color:#e63946;font-weight:600;">compute the volume</span> using V = (√2/3) × a³.' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'So V = (√2/3) × 125 ≈ 58.9 cm³!' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'Rotating the model really helps visualize all 8 faces at once 🔷' },
+  ],
+  Astronomy: [
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Welcome to our <strong>solar system model</strong>! Which planets fall in the habitable zone? 🪐' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'Earth is definitely in the habitable zone — the blue planet! 🌍' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'Venus and Mars are close too, but their conditions are extreme. Earth is just right!' },
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Correct! Task: <span style="color:#e63946;font-weight:600;">identify all habitable zone planets</span> by orbital distance from the sun.' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'Mercury is too close and scorching hot! Outer planets are way too cold ❄️' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'So only Earth sits in the Goldilocks zone in this model!' },
+  ],
+  Chemistry: [
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Today we examine a <strong>water molecule (H₂O)</strong>! Notice the bent shape — it is key to all of water\'s properties. ⚗️' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'I can see the two hydrogen atoms bonded to oxygen! Why is it bent and not straight?' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'The two lone pairs on oxygen repel the H atoms downward — VSEPR theory!' },
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Exactly! Task: <span style="color:#e63946;font-weight:600;">identify the molecular bonds</span>. What type holds H and O together?' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'Covalent bonds — they share electrons! The bond angle is 104.5°' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'That bent shape makes water polar, which is why it dissolves so many things 💧' },
+  ],
+  Compsci: [
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Let\'s explore this <strong>binary search tree</strong>! Root node is 8. How does a binary search work? 💻' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'Compare the value to each node — go left if smaller, right if larger!' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'Searching for 6: start at 8, go left to 4, go right to 6. Only 3 steps!' },
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Great! Task: <span style="color:#e63946;font-weight:600;">trace the binary search algorithm</span> to find the value 10.' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: '10 > 8 go right to 12, then 10 < 12 go left to 10. Found in 3 steps! 🎯' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'Binary search is O(log n) — so much faster than scanning every node!' },
+  ],
+  Engineering: [
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Look at this <strong>gear system</strong>! Large gear has 12 teeth, small one has 8. What is the gear ratio? ⚙️' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'Gear ratio = driver ÷ driven = 12 ÷ 8 = 1.5!' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'So the small gear spins 1.5× faster — you can literally see it in the model!' },
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Task: <span style="color:#e63946;font-weight:600;">calculate the gear ratio</span> and explain what it means for torque.' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'Higher speed means lower torque — the small gear spins faster but with less force!' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'This is basically how a bicycle works — switch gears to trade speed for power 🚴' },
+  ],
+  Anatomy: [
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Today we examine the <strong>human heart</strong>! Can you see it beating? Average rate is 72 BPM. 🫀' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'I can see four chambers! Two on top — the atria — and two on the bottom — the ventricles!' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'The left ventricle is the biggest because it pumps blood all the way around the body!' },
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Task: <span style="color:#e63946;font-weight:600;">identify all four chambers</span> and name the valves between them.' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'Right atrium → right ventricle → lungs → left atrium → left ventricle → body!' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'The valves prevent backflow — without them the whole pump system fails ❤️' },
+  ],
+  Geology: [
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Let\'s look at the <strong>Earth\'s internal structure</strong>! From outside in — can anyone name the layers? 🌋' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'I can see the rings! Crust on the outside, then mantle, then outer core, then inner core!' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'The inner core is solid iron even though it is the hottest part — because of extreme pressure!' },
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Task: <span style="color:#e63946;font-weight:600;">name each layer from crust to core</span> and give one fact about each.' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'Crust: 5-70 km thick. Mantle: solid silicate rock, extends to 2,900 km depth.' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'Outer core: liquid iron and nickel — that generates Earth\'s magnetic field! 🧲' },
+  ],
+  Robotics: [
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'This is a <strong>robotic arm manipulator</strong>! Count the movable joints — each adds a degree of freedom. 🤖' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'I count 3 joints! So it has 3 degrees of freedom?' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'Yes! Each joint rotates independently — that is what lets it reach different positions in space.' },
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Task: <span style="color:#e63946;font-weight:600;">calculate degrees of freedom</span> and explain why more joints means more flexibility.' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'A human arm has 7 DOF — shoulder (3), elbow (1), wrist (3). That is why we are so flexible!' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'Industrial robots usually have 6 DOF — enough to reach any position and orientation in 3D space 🏭' },
+  ],
+  Genetics: [
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Look at this <strong>Punnett square</strong> for an Aa × Aa cross! What genotype ratios do you predict? 🧪' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'I see AA, Aa, Aa, aa in the four cells — so 1 AA : 2 Aa : 1 aa!' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'That is a 3:1 phenotype ratio if A is dominant — 75% show the dominant trait!' },
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Task: <span style="color:#e63946;font-weight:600;">predict the offspring genotype ratios</span> and identify homozygous vs heterozygous.' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'AA is homozygous dominant, Aa is heterozygous, aa is homozygous recessive!' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'Mendel figured all this out with pea plants in the 1860s — before DNA was even discovered 🌱' },
+  ],
+  Environment: [
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'This is the <strong>carbon cycle</strong>! Carbon moves between atmosphere, plants, animals, oceans, and industry. 🌱' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'Plants absorb CO₂ through photosynthesis and store it as carbon, right?' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'And then animals eat plants and release CO₂ back when they breathe or decompose!' },
+    { type: 'teacher',   name: 'Ms. Reyes',        msg: 'Task: <span style="color:#e63946;font-weight:600;">trace the carbon cycle pathway</span> and identify where humans are disrupting it.' },
+    { type: 'student-a', name: 'Student A (Ana)',   msg: 'Industry and fossil fuels dump extra CO₂ into the atmosphere — faster than the cycle can absorb it!' },
+    { type: 'student-b', name: 'Student B (Marco)', msg: 'That is why CO₂ levels keep rising — the cycle is out of balance 🌍💨' },
+  ],
+};
+
+function loadChatForSubject(subject) {
+  const chatArea = document.getElementById('chat-area');
+  chatArea.innerHTML = '';
+
+  const capSubject = subject ? subject.charAt(0).toUpperCase() + subject.slice(1) : 'Biology';
+  const messages = CHAT_DATA[capSubject] || CHAT_DATA['Biology'];
+
+  messages.forEach((m, i) => {
+    setTimeout(() => {
+      const now = new Date();
+      const offset = (messages.length - 1 - i) * 2;
+      now.setMinutes(now.getMinutes() - offset);
+      const time = now.toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit' });
+      const icon = m.type === 'teacher' ? '🎓' : (m.type === 'student-a' ? '🔵' : '🟢');
+
+      const div = document.createElement('div');
+      div.className = 'chat-msg ' + m.type;
+      div.innerHTML =
+        '<div class="chat-meta">' + icon + ' ' + m.name + ' · ' + time + '</div>' +
+        '<div class="chat-bubble">' + m.msg + '</div>';
+      chatArea.appendChild(div);
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }, i * 600);
+  });
+}
+
+/* ══════════════════════════════════════════════════════════
+
+   SUBJECT MANAGEMENT
+
+   ══════════════════════════════════════════════════════════ */
+
+const SUBJECTS = {
+
+  Biology: {
+
+    label: 'Biology',
+
+    hud: 'TRACKING · BIOLOGY · DNA HELIX MODEL',
+
+    task: 'Identify the Gene Mutation!',
+
+    info: 'DNA Double Helix<br>Scale: 1.0×<br>Rotation: Active',
+
+    model: 'dna',
+
+    icon: '🧬'
+
+  },
+
+  Physics: {
+
+    label: 'Physics',
+
+    hud: 'TRACKING · PHYSICS · PENDULUM MODEL',
+
+    task: 'Calculate the Period of Oscillation!',
+
+    info: 'Simple Pendulum<br>Scale: 1.0×<br>Swing: Active',
+
+    model: 'pendulum',
+
+    icon: '⚛️'
+
+  },
+
+  Math: {
+
+    label: 'Mathematics',
+
+    hud: 'TRACKING · MATH · OCTAHEDRON MODEL',
+
+    task: 'Compute the Surface Area of the Polyhedron!',
+
+    info: 'Regular Octahedron<br>Scale: 1.0×<br>Rotation: Active',
+
+    model: 'geo',
+
+    icon: '📐'
+
+  },
+
+  Astronomy: {
+
+    label: 'Astronomy',
+
+    hud: 'TRACKING · ASTRONOMY · SOLAR SYSTEM MODEL',
+
+    task: 'Identify the Habitable Zone Planets!',
+
+    info: 'Inner Solar System<br>Scale: 1.0×<br>Orbit: Active',
+
+    model: 'solar',
+
+    icon: '🪐'
+
+  },
+
+  Anatomy: {
+
+    label: 'Anatomy',
+
+    hud: 'TRACKING · ANATOMY · HUMAN HEART MODEL',
+
+    task: 'Identify the Four Heart Chambers!',
+
+    info: 'Human Heart<br>Scale: 1.0×<br>Beating: 72 BPM',
+
+    model: 'heart',
+
+    icon: '❤️'
+
+  },
+
+  Geology: {
+
+    label: 'Geology',
+
+    hud: 'TRACKING · GEOLOGY · EARTH LAYERS',
+
+    task: 'Name Each Layer from Crust to Core!',
+
+    info: 'Earth Structure<br>Scale: 1.0×<br>Rotation: Active',
+
+    model: 'earthlayers',
+
+    icon: '🏔️'
+
+  },
+
+  Robotics: {
+
+    label: 'Robotics',
+
+    hud: 'TRACKING · ROBOTICS · ROBOT ARM MODEL',
+
+    task: 'Calculate the Degrees of Freedom!',
+
+    info: 'Robotic Manipulator<br>Scale: 1.0×<br>Joints: 3',
+
+    model: 'robotarm',
+
+    icon: '🤖'
+
+  },
+
+  Genetics: {
+
+    label: 'Genetics',
+
+    hud: 'TRACKING · GENETICS · PUNNETT SQUARE',
+
+    task: 'Predict Offspring Genotype Ratios!',
+
+    info: 'Mendelian Genetics<br>Cross: Aa × Aa<br>Ratio: 1:2:1',
+
+    model: 'punnett',
+
+    icon: '🧬'
+
+  },
+
+  Chemistry: {
+    label: 'Chemistry',
+    hud: 'TRACKING · CHEMISTRY · MOLECULE MODEL',
+    task: 'Identify the Molecular Bonds!',
+    info: 'H2O Molecule<br>Scale: 1.0x<br>Rotation: Active',
+    model: 'molecule',
+    icon: '⚗️'
+  },
+
+  Compsci: {
+    label: 'Computer Science',
+    hud: 'TRACKING · CS · BINARY TREE MODEL',
+    task: 'Trace the Binary Search Algorithm!',
+    info: 'Binary Tree<br>Nodes: 7<br>Depth: 3',
+    model: 'binarytree',
+    icon: '💻'
+  },
+
+  Engineering: {
+    label: 'Engineering',
+    hud: 'TRACKING · ENGINEERING · GEAR SYSTEM',
+    task: 'Calculate the Gear Ratio!',
+    info: 'Gear Train<br>Scale: 1.0x<br>Rotation: Active',
+    model: 'gears',
+    icon: '⚙️'
+  },
+
+  Environment: {
+    label: 'Environmental Science',
+    hud: 'TRACKING · ENV SCI · CARBON CYCLE',
+    task: 'Trace the Carbon Cycle Pathway!',
+    info: 'Carbon Cycle<br>Scale: 1.0x<br>Rotation: Active',
+    model: 'carboncycle',
+    icon: '🌱'
+  }
+
+};
+
+let currentSubject = 'Biology';
+
+let rotateOn = true;
+
+let scaledUp = false;
+
+let currentScale = 1;
+
+function changeSubject(key) {
+
+  const capKey = key.charAt(0).toUpperCase() + key.slice(1);
+  const s = SUBJECTS[capKey] || SUBJECTS['Biology'];
+
+  currentSubject = capKey;
+
+  
+
+  document.getElementById('ar-hud-text').textContent = s.hud;
+
+  document.getElementById('current-task-text').textContent = s.task;
+
+  document.getElementById('model-info-val').innerHTML = s.info;
+
+  document.getElementById('dash-subject-label').textContent = s.label;
+
+  document.getElementById('dash-task-display').textContent = 'Task: ' + s.task;
+
+  
+
+  loadChatForSubject(capKey);
+
+  
+
+  const stage = document.getElementById('model-stage');
+
+  stage.style.opacity = '0';
+
+  stage.style.transform = 'translate(-50%,-55%) scale(.6)';
+
+  
+
+  setTimeout(() => {
+
+    loadModel(s.model);
+
+    resetModelTransform();
+
+    stage.style.transition = 'opacity .4s ease, transform .4s cubic-bezier(.34,1.56,.64,1)';
+
+    stage.style.opacity = '1';
+
+    stage.style.transform = 'translate(-50%,-55%) scale(1)';
+
+  }, 300);
+
+}
+
+/* MODEL BUILDERS */
+
+function buildDNA() {
+
+  const colors = [
+
+    ['#4fc3f7','#f48fb1'],['#81c784','#ffb74d'],['#e57373','#64b5f6'],
+
+    ['#ba68c8','#4db6ac'],['#fff176','#f48fb1'],['#4fc3f7','#81c784'],
+
+    ['#ffb74d','#e57373'],['#64b5f6','#ba68c8']
+
+  ];
+
+  let html = `<div class="model-dna" id="dna-model" style="perspective:300px;">`;
+
+  const rungs = 8;
+
+  for (let i = 0; i < rungs; i++) {
+
+    const y = (i / (rungs - 1)) * 180;
+
+    const angle = (i / rungs) * 360;
+
+    const brightness = 0.6 + 0.4 * Math.sin((i / rungs) * Math.PI);
+
+    html += `<div class="dna-rung" style="
+
+      top:${y}px;
+
+      background: linear-gradient(90deg, ${colors[i][0]}, ${colors[i][1]});
+
+      transform: translateX(-50%) rotateX(${angle}deg) scaleX(${brightness});
+
+      box-shadow: 0 0 8px ${colors[i][0]}66;
+
+      opacity:${0.7 + 0.3 * brightness};
+
+    "></div>`;
+
+  }
+
+  for (let i = 0; i < 24; i++) {
+
+    const y = (i / 23) * 190;
+
+    const x = 20 * Math.sin((i / 24) * Math.PI * 2);
+
+    const x2 = 20 * Math.sin((i / 24) * Math.PI * 2 + Math.PI);
+
+    html += `
+
+      <div style="position:absolute;top:${y}px;left:calc(50% + ${x}px - 5px);
+
+        width:10px;height:10px;border-radius:50%;
+
+        background:radial-gradient(circle,#7eb3ff,#1a3a6b);
+
+        box-shadow:0 0 6px #3a7bd5;"></div>
+
+      <div style="position:absolute;top:${y}px;left:calc(50% + ${x2}px - 5px);
+
+        width:10px;height:10px;border-radius:50%;
+
+        background:radial-gradient(circle,#f48fb1,#880e4f);
+
+        box-shadow:0 0 6px #e91e63;"></div>`;
+
+  }
+
+  html += `</div>`;
+
+  return html;
+
+}
+
+function buildPendulum() {
+
+  return `
+
+  <div class="model-physics" style="margin-top:-20px;">
+
+    <div class="pendulum-pivot"></div>
+
+    <div class="pendulum-arm">
+
+      <div class="pendulum-bob"></div>
+
+    </div>
+
+    <div style="position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);
+
+      width:90px;height:14px;border-radius:50%;
+
+      background:radial-gradient(ellipse,rgba(58,123,213,.4),transparent);
+
+      filter:blur(4px);"></div>
+
+  </div>`;
+
+}
+
+function buildGeo() {
+
+  return `
+
+  <div class="model-geo">
+
+    <div class="geo-face" style="
+
+      width:90px;height:90px;
+
+      background:linear-gradient(135deg,rgba(58,123,213,.5),rgba(30,64,128,.8));
+
+      clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);
+
+      transform:rotateY(-40deg) rotateX(20deg) translateZ(-20px);
+
+      border:1px solid rgba(126,179,255,.4);
+
+      filter:drop-shadow(0 0 8px rgba(58,123,213,.4));
+
+    "></div>
+
+    <div class="geo-face" style="
+
+      width:90px;height:90px;
+
+      background:linear-gradient(225deg,rgba(42,82,152,.6),rgba(20,50,100,.8));
+
+      clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);
+
+      transform:rotateY(40deg) rotateX(20deg) translateZ(-20px);
+
+      border:1px solid rgba(126,179,255,.3);
+
+    "></div>
+
+    <div class="geo-face" style="
+
+      width:110px;height:110px;
+
+      background:linear-gradient(135deg,rgba(126,179,255,.3),rgba(58,123,213,.7));
+
+      clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);
+
+      transform:rotateZ(45deg);
+
+      border:2px solid rgba(126,179,255,.6);
+
+      box-shadow:0 0 20px rgba(58,123,213,.4),inset 0 0 20px rgba(255,255,255,.05);
+
+      position:absolute;
+
+    "></div>
+
+    <div class="geo-face" style="
+
+      width:70px;height:70px;
+
+      background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(126,179,255,.4));
+
+      clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);
+
+      transform:rotateZ(0deg) translateY(-55px);
+
+      border:1px solid rgba(255,255,255,.4);
+
+      position:absolute;
+
+    "></div>
+
+    <div class="geo-face" style="
+
+      width:70px;height:70px;
+
+      background:linear-gradient(315deg,rgba(30,64,128,.6),rgba(58,123,213,.3));
+
+      clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);
+
+      transform:rotateZ(0deg) translateY(55px);
+
+      border:1px solid rgba(126,179,255,.3);
+
+      position:absolute;
+
+    "></div>
+
+    <svg style="position:absolute;width:130px;height:130px;" viewBox="0 0 130 130">
+
+      <polygon points="65,5 125,65 65,125 5,65"
+
+        fill="none" stroke="rgba(126,179,255,.5)" stroke-width="1"/>
+
+      <line x1="5" y1="65" x2="125" y2="65" stroke="rgba(126,179,255,.2)" stroke-width="1"/>
+
+      <line x1="65" y1="5" x2="65" y2="125" stroke="rgba(126,179,255,.2)" stroke-width="1"/>
+
+    </svg>
+
+  </div>`;
+
+}
+
+function buildSolar() {
+
+  return `
+
+  <div class="model-solar">
+
+    <div class="sun"></div>
+
+    <div class="orbit" style="width:80px;height:80px;animation:none;">
+
+      <div class="planet" style="
+
+        width:10px;height:10px;
+
+        background:radial-gradient(circle,#b0b0b0,#666);
+
+        box-shadow:0 0 6px rgba(255,255,255,.4);
+
+        margin-left:-5px;margin-top:-5px;
+
+        animation:orbit-1 3s linear infinite;
+
+      "></div>
+
+    </div>
+
+    <div class="orbit" style="width:120px;height:120px;animation:none;">
+
+      <div class="planet" style="
+
+        width:14px;height:14px;
+
+        background:radial-gradient(circle at 35% 35%,#f5deb3,#daa520,#b8860b);
+
+        box-shadow:0 0 8px rgba(218,165,32,.5);
+
+        margin-left:-7px;margin-top:-7px;
+
+        animation:orbit-2 5s linear infinite;
+
+      "></div>
+
+    </div>
+
+    <div class="orbit" style="width:164px;height:164px;animation:none;">
+
+      <div class="planet" style="
+
+        width:16px;height:16px;
+
+        background:radial-gradient(circle at 35% 35%,#87ceeb,#1e90ff,#006400);
+
+        box-shadow:0 0 10px rgba(30,144,255,.5);
+
+        margin-left:-8px;margin-top:-8px;
+
+        animation:orbit-3 8s linear infinite;
+
+      "></div>
+
+    </div>
+
+  </div>`;
+
+}
+
+(function(){
+
+  const s = document.createElement('style');
+
+  s.textContent = `
+
+    @keyframes orbit-1 {
+
+      0%   { transform: rotate(0deg)    translate(40px)  rotate(0deg);   }
+
+      100% { transform: rotate(360deg)  translate(40px)  rotate(-360deg);}
+
+    }
+
+    @keyframes orbit-2 {
+
+      0%   { transform: rotate(120deg)  translate(60px)  rotate(-120deg);}
+
+      100% { transform: rotate(480deg)  translate(60px)  rotate(-480deg);}
+
+    }
+
+    @keyframes orbit-3 {
+
+      0%   { transform: rotate(240deg)  translate(82px)  rotate(-240deg);}
+
+      100% { transform: rotate(600deg)  translate(82px)  rotate(-600deg);}
+
+    }
+
+    @keyframes spin-slow { 0%{transform:rotate(0deg)}100%{transform:rotate(360deg)} }
+
+  `;
+
+  document.head.appendChild(s);
+
+})();
+
+
+function buildMolecule() {
+  return `
+  <div class="model-molecule" style="width:180px;height:180px;position:relative;animation:spin-3d 6s linear infinite;">
+    <!-- Oxygen atom (center) -->
+    <div class="atom" style="width:44px;height:44px;background:radial-gradient(circle at 35% 35%,#ff6b6b,#e63946);top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 0 16px rgba(230,57,70,.6);">O</div>
+    <!-- Hydrogen atom 1 -->
+    <div class="atom" style="width:28px;height:28px;background:radial-gradient(circle at 35% 35%,#7eb3ff,#3a7bd5);top:28%;left:22%;box-shadow:0 0 10px rgba(58,123,213,.6);">H</div>
+    <!-- Hydrogen atom 2 -->
+    <div class="atom" style="width:28px;height:28px;background:radial-gradient(circle at 35% 35%,#7eb3ff,#3a7bd5);top:28%;right:22%;box-shadow:0 0 10px rgba(58,123,213,.6);">H</div>
+    <!-- Bond 1 -->
+    <div class="bond" style="width:52px;top:38%;left:30%;transform:rotate(35deg);"></div>
+    <!-- Bond 2 -->
+    <div class="bond" style="width:52px;top:38%;right:30%;transform:rotate(-35deg);transform-origin:right center;"></div>
+    <!-- Electron cloud -->
+    <div style="position:absolute;inset:0;border-radius:50%;border:2px dashed rgba(126,179,255,.25);animation:spin-slow 8s linear infinite;"></div>
+    <div style="position:absolute;inset:10px;border-radius:50%;border:1px dashed rgba(126,179,255,.15);animation:spin-slow 12s linear infinite reverse;"></div>
+    <!-- Bond angle label -->
+    <div style="position:absolute;bottom:14%;left:50%;transform:translateX(-50%);font-size:10px;color:rgba(126,179,255,.7);font-family:var(--font-head);letter-spacing:1px;">104.5°</div>
+  </div>`;
+}
+
+function buildBinaryTree() {
+  const nodes = [
+    {val:8,  x:50,  y:8},
+    {val:4,  x:25,  y:30},
+    {val:12, x:75,  y:30},
+    {val:2,  x:12,  y:55},
+    {val:6,  x:38,  y:55},
+    {val:10, x:62,  y:55},
+    {val:14, x:88,  y:55},
+  ];
+  const edges = [
+    [0,1],[0,2],[1,3],[1,4],[2,5],[2,6]
+  ];
+  let svg = `<svg width="220" height="180" style="overflow:visible;">`;
+  edges.forEach(([a,b]) => {
+    const n1 = nodes[a], n2 = nodes[b];
+    svg += `<line x1="${n1.x*2.2}%" y1="${n1.y+5}%" x2="${n2.x*2.2}%" y2="${n2.y+5}%" stroke="rgba(126,179,255,.4)" stroke-width="2"/>`;
+  });
+  nodes.forEach((n,i) => {
+    const color = i === 0 ? '#f9c74f' : 'var(--sky)';
+    svg += `
+      <circle cx="${n.x*2.2}%" cy="${n.y+5}%" r="16" fill="rgba(58,123,213,.3)" stroke="${color}" stroke-width="2"/>
+      <text x="${n.x*2.2}%" y="${n.y+5}%" text-anchor="middle" dominant-baseline="central" fill="${color}" font-size="12" font-weight="700" font-family="Rajdhani,sans-serif">${n.val}</text>`;
+  });
+  svg += `</svg>`;
+  return `<div class="model-tree" style="animation:fade-pulse 3s ease-in-out infinite;">${svg}</div>`;
+}
+
+function buildGears() {
+  const makeTeeth = (r, count) => {
+    let d = '';
+    for (let i = 0; i < count; i++) {
+      const a = (i / count) * Math.PI * 2;
+      const a2 = ((i + 0.4) / count) * Math.PI * 2;
+      const a3 = ((i + 0.6) / count) * Math.PI * 2;
+      const a4 = ((i + 1) / count) * Math.PI * 2;
+      const ri = r, ro = r + 10;
+      d += `M${ri*Math.cos(a)},${ri*Math.sin(a)} L${ro*Math.cos(a2)},${ro*Math.sin(a2)} L${ro*Math.cos(a3)},${ro*Math.sin(a3)} L${ri*Math.cos(a4)},${ri*Math.sin(a4)} `;
+    }
+    return d;
+  };
+  return `
+  <div style="width:200px;height:160px;position:relative;display:flex;align-items:center;justify-content:center;">
+    <svg width="200" height="160" viewBox="-100 -80 200 160">
+      <!-- Large gear -->
+      <g style="animation:spin-slow 4s linear infinite;" transform-origin="-30 0">
+        <path d="${makeTeeth(34,12)}" fill="rgba(58,123,213,.5)" stroke="rgba(126,179,255,.6)" stroke-width="1" transform="translate(-30,0)"/>
+        <circle cx="-30" cy="0" r="34" fill="rgba(26,58,107,.8)" stroke="rgba(126,179,255,.4)" stroke-width="1.5"/>
+        <circle cx="-30" cy="0" r="12" fill="rgba(10,20,60,.9)" stroke="rgba(126,179,255,.3)" stroke-width="1"/>
+        <circle cx="-30" cy="0" r="3" fill="#7eb3ff"/>
+      </g>
+      <!-- Small gear (counter-rotates) -->
+      <g style="animation:spin-slow 2s linear infinite reverse;" transform-origin="28 0">
+        <path d="${makeTeeth(20,8)}" fill="rgba(230,57,70,.4)" stroke="rgba(230,100,100,.6)" stroke-width="1" transform="translate(28,0)"/>
+        <circle cx="28" cy="0" r="20" fill="rgba(80,20,30,.8)" stroke="rgba(230,100,100,.4)" stroke-width="1.5"/>
+        <circle cx="28" cy="0" r="7" fill="rgba(10,20,60,.9)" stroke="rgba(230,100,100,.3)" stroke-width="1"/>
+        <circle cx="28" cy="0" r="3" fill="#e63946"/>
+      </g>
+      <!-- Gear ratio label -->
+      <text x="0" y="68" text-anchor="middle" fill="rgba(126,179,255,.6)" font-size="9" font-family="Rajdhani,sans-serif" letter-spacing="1">RATIO  12:8 = 1.5×</text>
+    </svg>
+  </div>`;
+}
+
+function buildCarbonCycle() {
+  const nodes = [
+    {icon:'☀️', label:'Sun',        x:50, y:5,  bg:'rgba(249,199,79,.2)',  border:'rgba(249,199,79,.6)'},
+    {icon:'🌿', label:'Plants',     x:15, y:38, bg:'rgba(0,200,100,.15)',  border:'rgba(0,200,100,.5)'},
+    {icon:'🏭', label:'Industry',   x:82, y:38, bg:'rgba(150,150,150,.15)',border:'rgba(150,150,150,.5)'},
+    {icon:'🌊', label:'Ocean',      x:15, y:75, bg:'rgba(58,123,213,.15)', border:'rgba(58,123,213,.5)'},
+    {icon:'🦁', label:'Animals',    x:82, y:75, bg:'rgba(200,120,50,.15)', border:'rgba(200,120,50,.5)'},
+    {icon:'💨', label:'Atmosphere', x:50, y:50, bg:'rgba(126,179,255,.1)', border:'rgba(126,179,255,.4)'},
+  ];
+  let svg = `<svg width="200" height="200" style="overflow:visible;animation:spin-slow 25s linear infinite;">`;
+  const cx = n => n.x * 2;
+  const cy = n => n.y * 2;
+  // Draw arrows between atmosphere and others
+  const center = nodes[5];
+  [0,1,2,3,4].forEach(i => {
+    const n = nodes[i];
+    svg += `<line x1="${cx(center)}" y1="${cy(center)}" x2="${cx(n)}" y2="${cy(n)}" stroke="rgba(126,179,255,.25)" stroke-width="1.5" stroke-dasharray="4 3"/>`;
+  });
+  nodes.forEach(n => {
+    svg += `
+      <rect x="${cx(n)-22}" y="${cy(n)-18}" width="44" height="36" rx="8"
+        fill="${n.bg}" stroke="${n.border}" stroke-width="1.5"/>
+      <text x="${cx(n)}" y="${cy(n)-4}" text-anchor="middle" font-size="14">${n.icon}</text>
+      <text x="${cx(n)}" y="${cy(n)+12}" text-anchor="middle" fill="rgba(255,255,255,.7)"
+        font-size="8" font-family="Rajdhani,sans-serif" letter-spacing=".5">${n.label}</text>`;
+  });
+  svg += `</svg>`;
+  return `<div style="width:200px;height:200px;position:relative;">${svg}</div>`;
+}
+
+function buildHeart() {
+  return `
+  <div class="model-heart">
+    <div class="heart-shape"></div>
+    <div class="heart-valve" style="top:28%;left:30%;"></div>
+    <div class="heart-valve" style="top:28%;right:28%;"></div>
+    <div class="heart-valve" style="top:55%;left:35%;"></div>
+    <div class="heart-valve" style="top:55%;right:32%;"></div>
+  </div>`;
+}
+
+function buildEarthLayers() {
+  return `
+  <div class="model-earth">
+    <div class="earth-layer" style="width:180px;height:180px;background:radial-gradient(circle,transparent 48%,rgba(101,67,33,.7) 49%,rgba(139,90,43,.8) 60%,transparent 61%);"></div>
+    <div class="earth-layer" style="width:140px;height:140px;background:radial-gradient(circle,transparent 45%,rgba(200,100,50,.6) 46%,rgba(180,80,40,.7) 58%,transparent 59%);"></div>
+    <div class="earth-layer" style="width:100px;height:100px;background:radial-gradient(circle,transparent 40%,rgba(255,150,50,.5) 41%,rgba(220,100,30,.6) 55%,transparent 56%);"></div>
+    <div class="earth-layer" style="width:60px;height:60px;background:radial-gradient(circle,#ffcc44,#ff8800);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+      <span style="font-size:8px;color:#fff;font-weight:700;">CORE</span>
+    </div>
+  </div>`;
+}
+
+function buildRobotArm() {
+  return `
+  <div class="model-robot">
+    <div class="robot-base"></div>
+    <div class="robot-segment" style="width:12px;height:70px;bottom:20px;left:calc(50% - 6px);transform-origin:bottom center;animation:swing 2s ease-in-out infinite;"></div>
+    <div class="robot-segment" style="width:10px;height:55px;bottom:85px;left:calc(50% + 2px);transform-origin:bottom center;animation:swing 2s ease-in-out infinite reverse;"></div>
+    <div class="robot-joint" style="bottom:18px;left:calc(50% - 6px);"></div>
+    <div class="robot-joint" style="bottom:83px;left:calc(50% + 2px);"></div>
+    <div class="robot-joint" style="bottom:133px;left:calc(50% + 8px);width:8px;height:8px;"></div>
+  </div>`;
+}
+
+function buildPunnett() {
+  return `
+  <div class="model-punnett">
+    <div class="punnett-cell" style="background:transparent;border:none;"></div>
+    <div class="punnett-cell punnett-header">A</div>
+    <div class="punnett-cell punnett-header">a</div>
+    <div class="punnett-cell punnett-header">A</div>
+    <div class="punnett-cell">AA</div>
+    <div class="punnett-cell" style="color:#f9c74f;">Aa</div>
+    <div class="punnett-cell punnett-header">a</div>
+    <div class="punnett-cell" style="color:#f9c74f;">Aa</div>
+    <div class="punnett-cell" style="color:#e63946;">aa</div>
+  </div>`;
+}
+
+
+function loadModel(type) {
+
+  const container = document.getElementById('model-container');
+
+  const builders = { dna: buildDNA, pendulum: buildPendulum, geo: buildGeo, solar: buildSolar, heart: buildHeart, earthlayers: buildEarthLayers, robotarm: buildRobotArm, punnett: buildPunnett, molecule: buildMolecule, binarytree: buildBinaryTree, gears: buildGears, carboncycle: buildCarbonCycle };
+
+  container.innerHTML = builders[type]?.() || buildDNA();
+
+}
+
+/* AR CONTROLS */
+
+let rotateInterval = null;
+
+let rotateAngle = 0;
+
+let isRotating = true;
+
+function applyRotate() {
+
+  clearInterval(rotateInterval);
+
+  if (isRotating) {
+
+    rotateInterval = setInterval(() => {
+
+      rotateAngle += 1;
+
+      document.getElementById('model-stage').style.transform =
+
+        `translate(-50%, -55%) rotate(${rotateAngle * 0.4}deg) scale(${currentScale})`;
+
+    }, 16);
+
+  }
+
+}
+
+function toggleRotate() {
+
+  isRotating = !isRotating;
+
+  const btn = document.getElementById('btn-rotate');
+
+  btn.classList.toggle('rotate-active', isRotating);
+
+  btn.textContent = isRotating ? '⏸ Rotating…' : '▶ Rotate';
+
+  if (isRotating) applyRotate();
+
+  else clearInterval(rotateInterval);
+
+  updateModelInfo();
+
+}
+
+function toggleScale() {
+
+  scaledUp = !scaledUp;
+
+  currentScale = scaledUp ? 1.45 : 1;
+
+  const btn = document.getElementById('btn-scale');
+
+  btn.classList.toggle('scale-active', scaledUp);
+
+  btn.textContent = scaledUp ? '🔎 Scaled 1.45×' : '🔍 Scale';
+
+  document.getElementById('model-stage').style.transform =
+
+    `translate(-50%, -55%) scale(${currentScale})`;
+
+  updateModelInfo();
+
+}
+
+function resetModel() {
+
+  isRotating = true; scaledUp = false; currentScale = 1; rotateAngle = 0;
+
+  clearInterval(rotateInterval);
+
+  document.getElementById('btn-rotate').classList.remove('rotate-active');
+
+  document.getElementById('btn-rotate').textContent = '🔄 Rotate';
+
+  document.getElementById('btn-scale').classList.remove('scale-active');
+
+  document.getElementById('btn-scale').textContent = '🔍 Scale';
+
+  resetModelTransform();
+
+  applyRotate();
+
+  updateModelInfo();
+
+}
+
+function resetModelTransform() {
+
+  document.getElementById('model-stage').style.transform = 'translate(-50%,-55%) scale(1)';
+
+}
+
+function updateModelInfo() {
+
+  const s = SUBJECTS[currentSubject];
+
+  const label = s.info.split('<br>')[0];
+
+  document.getElementById('model-info-val').innerHTML =
+
+    `${label}<br>Scale: ${currentScale.toFixed(2)}×<br>Rotation: ${isRotating ? 'Active' : 'Paused'}`;
+
+}
+
+/* TABS & CHAT */
+
+function switchTab(tabId, btn) {
+
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+  btn.classList.add('active');
+
+  document.getElementById('tab-' + tabId).classList.add('active');
+
+}
+
+function sendMsg() {
+
+  const inp = document.getElementById('chat-input');
+
+  const text = inp.value.trim();
+
+  if (!text) return;
+
+  
+
+  const area = document.getElementById('chat-area');
+
+  const time = new Date().toLocaleTimeString('en-PH', { hour:'2-digit', minute:'2-digit' });
+
+  const div = document.createElement('div');
+
+  div.className = 'chat-msg user-msg';
+
+  div.innerHTML = `
+
+    <div class="chat-meta">🟡 ${currentUser?.name || 'You'} · ${time}</div>
+
+    <div class="chat-bubble">${escHtml(text)}</div>
+
+  `;
+
+  area.appendChild(div);
+
+  inp.value = '';
+
+  area.scrollTop = area.scrollHeight;
+
+  
+
+  if (Math.random() > 0.4) setTimeout(() => simulateReply(text, area), 1800);
+
+}
+
+function simulateReply(orig, area) {
+
+  const replies = [
+
+    { cls:'student-a', name:'🔵 Student A (Ana)',
+
+      msg:'That\'s a great point! I think the model shows it more clearly when rotated 45°.' },
+
+    { cls:'student-b', name:'🟢 Student B (Marco)',
+
+      msg:'Agreed! I annotated that section. Did you check the Annotations tab?' },
+
+    { cls:'teacher', name:'🎓 Ms. Reyes · Teacher',
+
+      msg:'Excellent collaboration, class! Keep exploring the AR model together.' },
+
+  ];
+
+  const r = replies[Math.floor(Math.random() * replies.length)];
+
+  const time = new Date().toLocaleTimeString('en-PH', { hour:'2-digit', minute:'2-digit' });
+
+  const div = document.createElement('div');
+
+  div.className = `chat-msg ${r.cls}`;
+
+  div.innerHTML = `
+
+    <div class="chat-meta">${r.name} · ${time}</div>
+
+    <div class="chat-bubble">${r.msg}</div>
+
+  `;
+
+  area.appendChild(div);
+
+  area.scrollTop = area.scrollHeight;
+
+}
+
+function escHtml(s) {
+
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+}
+
+/* ANNOTATIONS */
+
+const NOTE_COLORS = [
+
+  { bg:'#fff9c4', color:'#5d4037' },
+
+  { bg:'#b3e5fc', color:'#01579b' },
+
+  { bg:'#c8e6c9', color:'#1b5e20' },
+
+  { bg:'#f8bbd0', color:'#880e4f' },
+
+  { bg:'#ffe0b2', color:'#bf360c' },
+
+  { bg:'#e1bee7', color:'#4a148c' },
+
+];
+
+const PRESET_NOTES = [
+
+  { text:'Gene mutation found at base pair 3 - insertion of extra cytosine! 🧬', author:'Marco D.', color:1 },
+
+  { text:'DNA rungs represent hydrogen bonds between complementary bases.', author:'Ana L.', color:0 },
+
+  { text:'The helix completes a full turn every 10 base pairs.', author:'Ms. Reyes', color:3 },
+
+];
+
+function addNoteToGrid(text, author, colorIdx) {
+  var grid = document.getElementById('notes-grid');
+  if (!grid) return;
+  var c = NOTE_COLORS[colorIdx % NOTE_COLORS.length];
+  var div = document.createElement('div');
+  div.className = 'sticky-note';
+  div.style.background = c.bg;
+  div.style.color = c.color;
+  div.innerHTML = '<div class="note-author">' + escHtml(author || 'You') + '</div>' + escHtml(text);
+  grid.appendChild(div);
+}
+
+function addNote() {
+  var inp = document.getElementById('annot-input');
+  if (!inp) return;
+  var text = inp.value.trim();
+  if (!text) return;
+  var author = (currentUser && currentUser.name) ? currentUser.name : 'You';
+  var colorIdx = Math.floor(Math.random() * NOTE_COLORS.length);
+  addNoteToGrid(text, author, colorIdx);
+  inp.value = '';
+}
+
+/* DASHBOARD */
+
+function openDash() {
+
+  document.getElementById('dash-screen').classList.add('visible');
+
+}
+
+function closeDash() {
+
+  document.getElementById('dash-screen').classList.remove('visible');
+
+}
+
+function pushTask() {
+
+  const inp = document.getElementById('dash-task-input');
+
+  const text = inp.value.trim();
+
+  if (!text) return;
+
+  document.getElementById('current-task-text').textContent = text;
+
+  document.getElementById('dash-task-display').textContent = 'Task: ' + text;
+
+  inp.value = '';
+
+  const conf = document.getElementById('push-confirm');
+
+  conf.classList.add('show');
+
+  setTimeout(() => conf.classList.remove('show'), 2500);
+
+}
+
+/* INIT */
+
+window.addEventListener('DOMContentLoaded', () => {
+  initAuth();
+});
+
+</script>
+
+</body>
+
+</html>
